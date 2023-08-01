@@ -1,10 +1,11 @@
+import * as React from "react";
 
 function App() {
-  return (
-    <div>
-      <p>Controle Familia</p>
-    </div>
-  );
+    return (
+        <div className="app">
+            <p>Controle Familia</p>
+        </div>
+    );
 }
 
 export default App;
