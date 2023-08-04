@@ -51,7 +51,7 @@ const SidebarGlobal = () => {
             }
         }}
         >
-            <Sidebar collapsed={isCollapsed}>
+            <Sidebar collapsed={isCollapsed} style={{height: "100vh", background: colors.grey[900]}}>
                 <Menu iconshape="square">
                     <MenuItem
                         onClick={() => setIsCollapsed(!isCollapsed)}
