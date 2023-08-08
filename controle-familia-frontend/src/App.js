@@ -1,9 +1,10 @@
 import Topbar from "./scenes/global/Topbar";
-import { ColorModeContext, useMode } from "./theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import {ColorModeContext, useMode} from "./theme";
+import {CssBaseline, ThemeProvider} from "@mui/material";
 import {Route, Routes} from "react-router-dom";
-import {Dashboard} from "@mui/icons-material";
 import SidebarGlobal from "./scenes/global/SidebarGlobal";
+import Dashboard from "./scenes/dashboard/Index";
+import Equipe from "./scenes/equipe/index";
 
 function App() {
 	const [theme, colorMode] = useMode()
@@ -16,7 +17,8 @@ function App() {
 				<main className="content">
 					<Topbar />
 					<Routes>
-						<Route path="/" element={<Dashboard/>} />
+						<Route exact path="/" element={<Dashboard/>}/>
+						<Route exact path="equipe" element={<Equipe/>}/>
 					</Routes>
 				</main>
 			</div>
