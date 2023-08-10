@@ -4,7 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4e7cf91-87ac-422d-bc56-86bef299eb3b" name="Changes" comment="mudanca de versao" />
+    <list default="true" id="c4e7cf91-87ac-422d-bc56-86bef299eb3b" name="Changes" comment="mudanca de versao">
+      <change afterPath="$PROJECT_DIR$/controle-familia-frontend/src/dashboard/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/assets/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/controle-familia-frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/GraficoBarra.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/GraficoGeografico.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/GraficoLinha.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/GraficoPizza.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/Header.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/ProgressCircle.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/StatBox.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/dados/DadosEstaticos.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/dados/DadosGeoEstaticos.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/controle-familia-frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/controle-familia-frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/bar/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/calendar/calendar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/contacts/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/dashboard/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/equipe/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/faq/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/form/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/geography/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/global/SidebarGlobal.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/global/Topbar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/invoices/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/line/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/pie/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/theme.js" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +49,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -31,21 +68,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/home/marcosrossoni/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/232.8660.143/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/marcosrossoni/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/232.8660.143/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -58,6 +96,12 @@
       <workItem from="1691499292130" duration="3199000" />
       <workItem from="1691502701470" duration="2274000" />
       <workItem from="1691506027730" duration="10005000" />
+      <workItem from="1691579599425" duration="1212000" />
+      <workItem from="1691583055906" duration="651000" />
+      <workItem from="1691590044191" duration="2133000" />
+      <workItem from="1691600038104" duration="37000" />
+      <workItem from="1691695969066" duration="2645000" />
+      <workItem from="1691699221520" duration="1461000" />
     </task>
     <task id="LOCAL-00001" summary="mudanca de versao">
       <option name="closed" value="true" />
@@ -67,7 +111,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691528197157</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="mudanca de versao">
+      <option name="closed" value="true" />
+      <created>1691581008995</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1691581008995</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
