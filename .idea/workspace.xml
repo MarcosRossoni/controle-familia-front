@@ -4,42 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4e7cf91-87ac-422d-bc56-86bef299eb3b" name="Changes" comment="mudanca de versao">
-      <change afterPath="$PROJECT_DIR$/controle-familia-frontend/src/dashboard/Dashboard.jsx" afterDir="false" />
+    <list default="true" id="c4e7cf91-87ac-422d-bc56-86bef299eb3b" name="Changes" comment="mais alteracoes">
+      <change afterPath="$PROJECT_DIR$/controle-familia-frontend/src/dashboard/ListItems.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controle-familia-frontend/src/dashboard/MenuBar.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controle-familia-frontend/src/dashboard/MenuDrawer.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/assets/user.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/public/robots.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/controle-familia-frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/GraficoBarra.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/GraficoGeografico.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/GraficoLinha.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/GraficoPizza.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/Header.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/ProgressCircle.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/components/StatBox.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/dados/DadosEstaticos.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/dados/DadosGeoEstaticos.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/controle-familia-frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/controle-familia-frontend/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/bar/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/calendar/calendar.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/contacts/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/dashboard/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/equipe/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/faq/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/form/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/geography/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/global/SidebarGlobal.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/global/Topbar.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/invoices/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/line/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/scenes/pie/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/theme.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controle-familia-frontend/src/dashboard/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/controle-familia-frontend/src/dashboard/Dashboard.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +72,9 @@
       <workItem from="1691590044191" duration="2133000" />
       <workItem from="1691600038104" duration="37000" />
       <workItem from="1691695969066" duration="2645000" />
-      <workItem from="1691699221520" duration="1461000" />
+      <workItem from="1691699221520" duration="1510000" />
+      <workItem from="1691752182489" duration="605000" />
+      <workItem from="1691762755245" duration="10833000" />
     </task>
     <task id="LOCAL-00001" summary="mudanca de versao">
       <option name="closed" value="true" />
@@ -119,7 +92,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691581008995</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="mais alteracoes">
+      <option name="closed" value="true" />
+      <created>1691701034778</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1691701034778</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,6 +108,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="mudanca de versao" />
-    <option name="LAST_COMMIT_MESSAGE" value="mudanca de versao" />
+    <MESSAGE value="mais alteracoes" />
+    <option name="LAST_COMMIT_MESSAGE" value="mais alteracoes" />
   </component>
 </project>

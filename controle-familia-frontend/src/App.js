@@ -2,24 +2,13 @@ import './App.css';
 import Dashboard from "./dashboard/Dashboard";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-          <Dashboard></Dashboard>
-        <p>
-         Hello
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <header className="App-header">
+                <Dashboard></Dashboard>
+            </header>
+        </div>
+    );
 }
 
 export default App;
