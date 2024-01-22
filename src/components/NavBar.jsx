@@ -8,12 +8,12 @@ import {Badge} from "primereact/badge";
 
 const NavBar = () => {
     return (
-        <div>
-            <nav className="navbar">
+        <div className="flex w-full">
+            <nav className="navbar w-full">
                 <Link to={`/`}>
                     <i className="pi pi-home" style={{fontSize: '2rem', color: "white"}}></i>
                 </Link>
-                <div className="flex-auto">
+                <div className="flex">
                     <Avatar icon="pi pi-user" className="p-overlay-badge" style={{backgroundColor: '#9c27b0', color: '#ffffff'}} size="xlarge">
                         <Badge value="4"/>
                     </Avatar>
