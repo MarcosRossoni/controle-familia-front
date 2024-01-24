@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from "./rotes/Home.tsx";
-import ContaBancaria from "./components/ContaBancaria.tsx";
+import CadastroContaCorrente from "./components/CadastroContaCorrente.tsx";
 
 const router = createBrowserRouter([
     {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/conta-bancaria",
-                element: <ContaBancaria/>
+                element: <CadastroContaCorrente/>
             }
         ]
     }

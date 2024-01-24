@@ -9,19 +9,21 @@ import {Outlet} from "react-router-dom";
 import './App.css'
 
 function App() {
-  return (
-    <PrimeReactProvider>
-      <div className="surface-0 h-full">
-          <NavBar/>
-          <div className="flex flex-row">
-              <MenuBar/>
-              <div className="container">
-                  <Outlet/>
-              </div>
-          </div>
-      </div>
-    </PrimeReactProvider>
-  )
+    return (
+        <PrimeReactProvider>
+            <div>
+                <NavBar/>
+                <div className="grid">
+                    <div className="col-3">
+                        <MenuBar/>
+                    </div>
+                    <div className="col-9">
+                        <Outlet/>
+                    </div>
+                </div>
+            </div>
+        </PrimeReactProvider>
+    )
 }
 
 export default App
