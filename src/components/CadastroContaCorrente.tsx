@@ -34,7 +34,7 @@ const CadastroContaCorrente = () => {
                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDsNome(e.target.value)}
                                    className="text-base text-color surface-overlay p-2 border-1 border-solid
                                     surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
-                        <label htmlFor="dsNome">Nome da Conta</label>
+                        <label htmlFor="dsNome" className="">Nome da Conta</label>
                     </span>
                 </div>
                 <div className="field col-12 md:col-6 mt-4">
