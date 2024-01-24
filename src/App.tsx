@@ -13,11 +13,11 @@ function App() {
         <PrimeReactProvider>
             <div>
                 <NavBar/>
-                <div className="grid">
-                    <div className="col-3">
+                <div className="flex">
+                    <div>
                         <MenuBar/>
                     </div>
-                    <div className="col-9">
+                    <div className="flex w-full">
                         <Outlet/>
                     </div>
                 </div>

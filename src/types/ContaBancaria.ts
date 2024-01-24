@@ -9,7 +9,7 @@ export type ContaBancaria = {
     fgContaBancaria?: number | any
     vlSaldoIncial?: number | any
     vlSaldoAtual?: number | any
-    dtUltimaMovimentacao?: string | any
+    dtUltimaMovimentacao?: string | null
     usuarioCadastro?: Usuario
     usuarioMovimentacao?: Usuario
 }

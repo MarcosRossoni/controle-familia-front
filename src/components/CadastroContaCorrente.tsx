@@ -26,9 +26,9 @@ const CadastroContaCorrente = () => {
     return (
         <div className="surface-50 border-round shadow-5 surface-card p-1 m-2">
             <h2 className="text-center font-bold">Conta Bancaria</h2>
-            <div className="formgrid grid m-2"
-                 onSubmit={(e: React.FormEvent): Promise<void> => createContaBancaria(e)}>
-                <div className="field col-12 md:col-6">
+            <form className="formgrid grid m-2"
+                 onSubmit={(e: React.FormEvent) => createContaBancaria(e)}>
+                <div className="field col-12 md:col-6 mt-4">
                     <span className="p-float-label">
                         <InputText id="dsNome" value={dsNome}
                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDsNome(e.target.value)}
@@ -37,7 +37,7 @@ const CadastroContaCorrente = () => {
                         <label htmlFor="dsNome">Nome da Conta</label>
                     </span>
                 </div>
-                <div className="field col-12 md:col-6">
+                <div className="field col-12 md:col-6 mt-4">
                     <span className="p-float-label">
                         <InputText id="banco" value={dsBanco}
                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDsBanco(e.target.value)}
@@ -46,28 +46,28 @@ const CadastroContaCorrente = () => {
                         <label htmlFor="banco">Banco</label>
                     </span>
                 </div>
-                <div className="field col-12 md:col-6">
+                <div className="field col-12 md:col-6 mt-4">
                     <span className="p-float-label">
                         <InputNumber id="conta" value={conta}
-                                     onValueChange={(e: InputNumberValueChangeEvent) => setConta(e.value)}
+                                     onValueChange={(e: InputNumberValueChangeEvent) => setConta(e.value)} useGrouping={false}
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
                                      border-round appearance-none outline-none focus:border-primary w-full"/>
                         <label htmlFor="conta">Num Conta</label>
                     </span>
                 </div>
-                <div className="field col-12 md:col-6">
+                <div className="field col-12 md:col-6 mt-4">
                     <span className="p-float-label">
                         <InputNumber id="agencia" value={agencia}
-                                     onValueChange={(e: InputNumberValueChangeEvent) => setAgencia(e.value)}
+                                     onValueChange={(e: InputNumberValueChangeEvent) => setAgencia(e.value)} useGrouping={false}
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
                                      border-round appearance-none outline-none focus:border-primary w-full"/>
                         <label htmlFor="agencia">Num Agencia</label>
                     </span>
                 </div>
-                <div className="field col-12 text-center">
-                    <Button label="Submit"/>
+                <div className="field col-12 text-right mt-2">
+                    <Button type="submit" label="Salvar"/>
                 </div>
-            </div>
+            </form>
         </div>
     );
 };
