@@ -1,11 +1,10 @@
+import {useRef} from 'react';
 import {Toast} from "primereact/toast";
-import {useRef} from "react";
-import {MenuItem} from "primereact/menuitem";
 import {Menu} from "primereact/menu";
 
 const MenuBar = () => {
-    const toast = useRef<Toast>(null);
-    const items: MenuItem[] = [
+    const toast = useRef(null);
+    const items = [
         {
             label: 'Documents',
             items: [
@@ -36,7 +35,7 @@ const MenuBar = () => {
     ];
 
     return (
-        <div className="card flex justify-content-center h-full">
+        <div className="card flex justify-content-center h-full py-2">
             <Toast ref={toast} />
             <Menu className="surface-ground" model={items} />
         </div>
