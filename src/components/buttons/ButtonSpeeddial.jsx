@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import {Toast} from "primereact/toast";
 import {SpeedDial} from "primereact/speeddial";
+import {Speeddial} from "../styled/ButtonsStyled.js";
 
 const ButtonSpeeddial = () => {
     const toast = useRef(null);
@@ -41,10 +42,10 @@ const ButtonSpeeddial = () => {
 
     return (
         <div className="card">
-            <div style={{ position: 'relative', minHeight: '480px'}}>
+            <Speeddial>
                 <Toast ref={toast} />
                 <SpeedDial model={items} radius={120} type="quarter-circle" direction="up-left" style={{ right: 0, bottom: 0 }} />
-            </div>
+            </Speeddial>
         </div>
     )
 };

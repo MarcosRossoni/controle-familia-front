@@ -3,7 +3,6 @@ import {Card} from "primereact/card";
 import {InputText} from "primereact/inputtext";
 import {InputNumber} from "primereact/inputnumber";
 import {Button} from "primereact/button";
-import ButtonSpeeddial from "./buttons/ButtonSpeeddial.jsx";
 
 const CadastroContaCorrente = () => {
     const [dsNome, setDsNome] = useState("")
@@ -22,6 +21,7 @@ const CadastroContaCorrente = () => {
         }
 
         console.log(data)
+
     }
 
     return (
@@ -72,7 +72,6 @@ const CadastroContaCorrente = () => {
                     </div>
                 </form>
             </Card>
-            <ButtonSpeeddial/>
         </div>
     );
 };
