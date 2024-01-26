@@ -4,7 +4,7 @@ import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
 
 const ContaBancaria = () => {
     return (
-        <div>
+        <div className="relative" style={{height: ("88vh")}}>
             <CadastroContaCorrente/>
             <ButtonSpeeddial/>
         </div>

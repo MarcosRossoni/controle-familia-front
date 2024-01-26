@@ -14,7 +14,7 @@ function App() {
       <PrimeReactProvider>
           <div className="p-0 m-0">
               <NavBar/>
-              <div className="grid h-full">
+              <div className="grid mr-1">
                   <div className="col-fixed" style={{width:"250px"}}>
                       <MenuBar/>
                   </div>

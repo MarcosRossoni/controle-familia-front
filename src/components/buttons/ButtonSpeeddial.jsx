@@ -44,7 +44,9 @@ const ButtonSpeeddial = () => {
         <div className="card">
             <Speeddial>
                 <Toast ref={toast} />
-                <SpeedDial model={items} radius={120} type="quarter-circle" direction="up-left" style={{ right: 0, bottom: 0 }} />
+                <div className="absolute bottom-0 right-0">
+                    <SpeedDial model={items} radius={120} type="quarter-circle" direction="up-left" style={{ right: 0, bottom: 0 }} />
+                </div>
             </Speeddial>
         </div>
     )
