@@ -5,6 +5,7 @@ import './index.css'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from "./rotes/Home.jsx";
 import ContaBancaria from "./rotes/ContaBancaria.jsx";
+import Usuario from "./rotes/Usuario.jsx";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "/conta-bancaria",
                 element: <ContaBancaria/>
+            },
+            {
+                path: "/usuario",
+                element: <Usuario/>
             }
         ]
     }
