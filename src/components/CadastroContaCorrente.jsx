@@ -5,6 +5,7 @@ import {InputNumber} from "primereact/inputnumber";
 import {Button} from "primereact/button";
 import {Dropdown} from "primereact/dropdown";
 import pathBackend from "../axios/config.js";
+import './styled/FormStyled.css';
 
 const CadastroContaCorrente = () => {
     const [dsNome, setDsNome] = useState("")
@@ -71,7 +72,8 @@ const CadastroContaCorrente = () => {
                                      onValueChange={(e) => setConta(e.value)}
                                      useGrouping={false}
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
-                                     border-round appearance-none outline-none focus:border-primary w-full"/>
+                                     border-round appearance-none outline-none focus:border-primary w-full input-number"
+                                     inputClassName={'input-number'}/>
                         <label htmlFor="conta">Num Conta</label>
                     </span>
                     </div>
@@ -81,7 +83,8 @@ const CadastroContaCorrente = () => {
                                      onValueChange={(e) => setAgencia(e.value)}
                                      useGrouping={false}
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
-                                     border-round appearance-none outline-none focus:border-primary w-full"/>
+                                     border-round appearance-none outline-none focus:border-primary w-full input-number"
+                                     inputClassName={'input-number'}/>
                         <label htmlFor="agencia">Num Agencia</label>
                     </span>
                     </div>
@@ -101,7 +104,8 @@ const CadastroContaCorrente = () => {
                                      onValueChange={(e) => setVlSaldoIncial(e.value)}
                                      locale="de-DE" minFractionDigits={2}
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
-                                     border-round appearance-none outline-none focus:border-primary w-full"/>
+                                     border-round appearance-none outline-none focus:border-primary w-full input-number"
+                                     inputClassName={'input-number'}/>
                             <label htmlFor="vlSaldoIncial">Saldo Incial</label>
                         </span>
                     </div>
@@ -111,7 +115,8 @@ const CadastroContaCorrente = () => {
                                      onValueChange={(e) => setVlSaldoAtual(e.value)}
                                      locale="de-DE" minFractionDigits={2}
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
-                                     border-round appearance-none outline-none focus:border-primary w-full"/>
+                                     border-round appearance-none outline-none focus:border-primary w-full input-number"
+                                     inputClassName={'input-number'}/>
                             <label htmlFor="vlSaldoIncial">Saldo Atual</label>
                         </span>
                     </div>
