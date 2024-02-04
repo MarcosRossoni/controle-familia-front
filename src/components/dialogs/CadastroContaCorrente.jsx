@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import {Card} from "primereact/card";
 import {InputText} from "primereact/inputtext";
 import {InputNumber} from "primereact/inputnumber";
 import {Button} from "primereact/button";
 import {Dropdown} from "primereact/dropdown";
-import pathBackend from "../axios/config.js";
-import './styled/FormStyled.css';
+import pathBackend from "../../axios/config.js";
+import '../styled/FormStyled.css';
+import {Dialog} from "primereact/dialog";
 
-const CadastroContaCorrente = () => {
+const CadastroContaCorrente = ({visible, setHideDialog}) => {
     const [dsNome, setDsNome] = useState("")
     const [dsBanco, setDsBanco] = useState("")
     const [conta, setConta] = useState()
@@ -22,10 +22,9 @@ const CadastroContaCorrente = () => {
         { name: 'APLICAÇÃO', code: 2 }
     ];
 
-    console.log(fgTipoConta.code)
-
     const createContaBancaria = async(e) => {
         e.preventDefault()
+        console.log("caiu")
 
         const contaBancariaDTO = {
             dsDescricao: dsNome,
@@ -43,12 +42,27 @@ const CadastroContaCorrente = () => {
             })
     }
 
+    const setVisible = (r, reload) => {
+        setHideDialog(r, reload)
+        return false
+    }
+
+    const footerContent = (
+        <div>
+            <Button label="Cancelar" icon="pi pi-times" onClick={() => setVisible(false, false)} className="p-button-text" />
+            <Button label="Salvar" type="submit" icon="pi pi-check" onClick={(e) => {
+                createContaBancaria(e)
+                setVisible(false, true)
+            }} autoFocus />
+        </div>
+    );
+
     return (
-        <div className="p-1 m-2">
-            <Card title="Contas Bancarias" className="shadow-5">
-                <form className="formgrid grid m-2"
-                      onSubmit={(e) => createContaBancaria(e)}>
-                    <div className="field col-12 md:col-6 mt-4">
+        <div className="card flex justify-content-center">
+            <Dialog header="Contas Bancarias" visible={visible} style={{width: '50vw'}} onHide={() => setVisible(false)}
+                    footer={footerContent}>
+                <div className="formgrid grid m-2 p-3">
+                    <div className="field col-12">
                     <span className="p-float-label">
                         <InputText id="dsNome" value={dsNome}
                                    onChange={(e) => setDsNome(e.target.value)}
@@ -94,7 +108,8 @@ const CadastroContaCorrente = () => {
                                       options={tipoConta}
                                       optionLabel="name"
                                       className="text-base text-color surface-overlay border-1 border-solid surface-border
-                                     border-round appearance-none outline-none focus:border-primary w-full"/>
+                                     border-round appearance-none outline-none focus:border-primary w-full dropdown"
+                                      inputClassName={'dropdown'}/>
                             <label htmlFor="fgTipoConta">Tipo Conta</label>
                         </span>
                     </div>
@@ -120,12 +135,8 @@ const CadastroContaCorrente = () => {
                             <label htmlFor="vlSaldoIncial">Saldo Atual</label>
                         </span>
                     </div>
-
-                    <div className="field col-12 text-right mt-2">
-                        <Button type="submit" label="Salvar"/>
-                    </div>
-                </form>
-            </Card>
+                </div>
+            </Dialog>
         </div>
     );
 };

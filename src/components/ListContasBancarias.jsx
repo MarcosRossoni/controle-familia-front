@@ -1,11 +1,11 @@
 import React from 'react';
 import CardContaBancaria from "./CardContaBancaria.jsx";
 
-const ListContasBancarias = () => {
+const ListContasBancarias = ({reload}) => {
 
     return (
-        <div className="col-6">
-            <CardContaBancaria/>
+        <div className="field col-6">
+            <CardContaBancaria reload={reload}/>
         </div>
     );
 };
