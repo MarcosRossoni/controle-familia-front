@@ -4,7 +4,7 @@ import CardContaBancaria from "./CardContaBancaria.jsx";
 const ListContasBancarias = ({reload}) => {
 
     return (
-        <div className="field col-6">
+        <div className="mt-2">
             <CardContaBancaria reload={reload}/>
         </div>
     );

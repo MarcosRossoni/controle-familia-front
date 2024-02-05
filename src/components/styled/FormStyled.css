@@ -18,7 +18,7 @@
     border: 0 solid #d1d5db !important;
 }
 
-.dropdown.p-inputtext {
+.dropdown-component .p-inputtext {
     padding: 0.5rem !important;
     border: 0 solid #d1d5db !important;
 }

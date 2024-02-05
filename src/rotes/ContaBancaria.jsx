@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import CadastroContaCorrente from "../components/dialogs/CadastroContaCorrente.jsx";
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
-import ListContasBancarias from "../components/ListContasBancarias.jsx";
-import {Dialog} from "primereact/dialog";
-import {Button} from "primereact/button";
+import CardContaBancaria from "../components/CardContaBancaria.jsx";
 
 const ContaBancaria = () => {
     const [visible, setVisible] = useState(false)
@@ -43,8 +41,8 @@ const ContaBancaria = () => {
 
     return (
         <div className="relative" style={{height: ("88vh")}}>
-            <CadastroContaCorrente visible={visible} setHideDialog={setHideDialog}/>
-            <ListContasBancarias reload={reload}/>
+            {visible ? <CadastroContaCorrente visible={visible} setHideDialog={setHideDialog} idConta={null}/> : <></>}
+            <CardContaBancaria reload={reload}/>
             <ButtonSpeeddial itemsSpeed={itemsMenu}/>
         </div>
 

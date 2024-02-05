@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {InputText} from "primereact/inputtext";
 import {InputNumber} from "primereact/inputnumber";
 import {Button} from "primereact/button";
 import {Dropdown} from "primereact/dropdown";
-import pathBackend from "../../axios/config.js";
 import '../styled/FormStyled.css';
 import {Dialog} from "primereact/dialog";
+import contabancariaService from "../../services/contabancaria.service.js";
 
-const CadastroContaCorrente = ({visible, setHideDialog}) => {
+const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
     const [dsNome, setDsNome] = useState("")
     const [dsBanco, setDsBanco] = useState("")
     const [conta, setConta] = useState()
@@ -24,9 +24,9 @@ const CadastroContaCorrente = ({visible, setHideDialog}) => {
 
     const createContaBancaria = async(e) => {
         e.preventDefault()
-        console.log("caiu")
 
         const contaBancariaDTO = {
+            idContaBancaria: idConta,
             dsDescricao: dsNome,
             dsBanco: dsBanco,
             numConta: conta?.toString(),
@@ -35,10 +35,19 @@ const CadastroContaCorrente = ({visible, setHideDialog}) => {
             vlSaldoIncial: vlSaldoIncial,
             vlSaldoAtual: vlSaldoAtual
         }
-
-        await pathBackend.post("/conta-bancaria", contaBancariaDTO)
-            .then(function (response) {
-                console.log(response)
+        if (idConta) {
+            console.log(contaBancariaDTO)
+            contabancariaService.alterarContaBancaria(contaBancariaDTO)
+                .then((response) => {
+                    console.log(response)
+                    setVisible(false, true)
+                })
+            return
+        }
+        contabancariaService.cadastrarContaBancaria(contaBancariaDTO)
+            .then((resposne) => {
+                console.log(resposne.data)
+                setVisible(false, true)
             })
     }
 
@@ -47,12 +56,30 @@ const CadastroContaCorrente = ({visible, setHideDialog}) => {
         return false
     }
 
+    useEffect(() => {
+        if (idConta !== null) {
+            contabancariaService.findById(idConta)
+                .then((response) => {
+                    construirObjectEdit(response.data)
+                })
+        }
+    }, [visible]);
+
+    const construirObjectEdit = (contaEdit) => {
+        setDsNome(contaEdit.dsDescricao)
+        setDsBanco(contaEdit.dsBanco)
+        setConta(parseInt(contaEdit.numConta))
+        setAgencia(parseInt(contaEdit.numAgencia))
+        setFgTipoConta(tipoConta.find((item) => item.code === contaEdit.fgContaBancaria))
+        setVlSaldoIncial(contaEdit.vlSaldoIncial)
+        setVlSaldoAtual(contaEdit.vlSaldoAtual)
+    }
+
     const footerContent = (
         <div>
             <Button label="Cancelar" icon="pi pi-times" onClick={() => setVisible(false, false)} className="p-button-text" />
             <Button label="Salvar" type="submit" icon="pi pi-check" onClick={(e) => {
                 createContaBancaria(e)
-                setVisible(false, true)
             }} autoFocus />
         </div>
     );
@@ -108,8 +135,7 @@ const CadastroContaCorrente = ({visible, setHideDialog}) => {
                                       options={tipoConta}
                                       optionLabel="name"
                                       className="text-base text-color surface-overlay border-1 border-solid surface-border
-                                     border-round appearance-none outline-none focus:border-primary w-full dropdown"
-                                      inputClassName={'dropdown'}/>
+                                     border-round appearance-none outline-none focus:border-primary w-full dropdown-component"/>
                             <label htmlFor="fgTipoConta">Tipo Conta</label>
                         </span>
                     </div>
@@ -131,7 +157,7 @@ const CadastroContaCorrente = ({visible, setHideDialog}) => {
                                      locale="de-DE" minFractionDigits={2}
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
                                      border-round appearance-none outline-none focus:border-primary w-full input-number"
-                                     inputClassName={'input-number'}/>
+                                     inputClassName={'input-number'} disabled={idConta}/>
                             <label htmlFor="vlSaldoIncial">Saldo Atual</label>
                         </span>
                     </div>
