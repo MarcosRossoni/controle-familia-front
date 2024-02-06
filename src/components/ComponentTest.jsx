@@ -68,7 +68,7 @@ const ComponentTest = () => {
     return (
             <div className="card shadow-5">
                 <CarList>
-                    <DataScroller value={products} itemTemplate={itemTemplate} rows={5} inline scrollHeight={`85.5vh`}
+                    <DataScroller value={products} itemTemplate={itemTemplate} rows={5} inline scrollHeight={`84.5vh`}
                                   header="Scroll Down to Load More"/>
                 </CarList>
             </div>
