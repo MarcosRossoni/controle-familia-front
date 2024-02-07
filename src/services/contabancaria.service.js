@@ -12,6 +12,10 @@ const contabancariaService = {
 
     async findById(idConta) {
         return pathBackend.get(`/conta-bancaria/${idConta}`)
+    },
+
+    async findListContas() {
+        return pathBackend.get("/conta-bancaria")
     }
 }
 

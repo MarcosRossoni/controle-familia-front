@@ -15,6 +15,7 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
     const [fgTipoConta, setFgTipoConta] = useState({});
     const [vlSaldoIncial, setVlSaldoIncial] = useState(null);
     const [vlSaldoAtual, setVlSaldoAtual] = useState(null);
+    const [fgAtiva,  setFgAtiva] = useState()
 
     const tipoConta = [
         { name: 'CONTA CORRENTE', code: 0 },
@@ -33,7 +34,8 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
             numAgencia: agencia?.toString(),
             fgContaBancaria: fgTipoConta.code,
             vlSaldoIncial: vlSaldoIncial,
-            vlSaldoAtual: vlSaldoAtual
+            vlSaldoAtual: vlSaldoAtual,
+            fgAtiva: fgAtiva
         }
         if (idConta) {
             console.log(contaBancariaDTO)
@@ -73,6 +75,7 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
         setFgTipoConta(tipoConta.find((item) => item.code === contaEdit.fgContaBancaria))
         setVlSaldoIncial(contaEdit.vlSaldoIncial)
         setVlSaldoAtual(contaEdit.vlSaldoAtual)
+        setFgAtiva(contaEdit.fgAtiva)
     }
 
     const footerContent = (

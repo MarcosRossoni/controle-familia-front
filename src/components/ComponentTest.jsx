@@ -3,7 +3,6 @@ import {Button} from "primereact/button";
 import {Tag} from "primereact/tag";
 import {DataScroller} from "primereact/datascroller";
 import {Rating} from "primereact/rating";
-import {CarList} from "./styled/CarListStyled.js";
 
 const ComponentTest = () => {
     const [products, setProducts] = useState({
@@ -66,12 +65,10 @@ const ComponentTest = () => {
         );
     };
     return (
-            <div className="card shadow-5">
-                <CarList>
-                    <DataScroller value={products} itemTemplate={itemTemplate} rows={5} inline scrollHeight={`84.5vh`}
-                                  header="Scroll Down to Load More"/>
-                </CarList>
-            </div>
+        <div className="card shadow-5">
+            <DataScroller value={products} itemTemplate={itemTemplate} rows={5} inline scrollHeight={`84.5vh`}
+                          header="Scroll Down to Load More"/>
+        </div>
     )
 };
 

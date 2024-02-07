@@ -3,6 +3,7 @@ import CadastroContaCorrente from "../components/dialogs/CadastroContaCorrente.j
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
 import CardContaBancaria from "../components/CardContaBancaria.jsx";
 import ComponentTest from "../components/ComponentTest.jsx";
+import ListContasBancarias from "../components/ListContasBancarias.jsx";
 
 const ContaBancaria = () => {
     const [visible, setVisible] = useState(false)
@@ -44,7 +45,7 @@ const ContaBancaria = () => {
         <div className="relative" style={{height: ("88vh")}}>
             {visible ? <CadastroContaCorrente visible={visible} setHideDialog={setHideDialog} idConta={null}/> : <></>}
             {/*<CardContaBancaria reload={reload}/>*/}
-            <ComponentTest/>
+            <ListContasBancarias reload={reload}/>
             <ButtonSpeeddial itemsSpeed={itemsMenu}/>
         </div>
 
