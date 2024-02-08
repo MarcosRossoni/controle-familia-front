@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import CadastroContaCorrente from "../components/dialogs/CadastroContaCorrente.jsx";
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
 import ListContasBancarias from "../components/ListContasBancarias.jsx";
+import {IoIosAdd} from "react-icons/io";
 
 const ContaBancaria = () => {
     const [visible, setVisible] = useState(false)
@@ -9,7 +10,7 @@ const ContaBancaria = () => {
     const [itemsMenu, setItemsMenu] = useState([
         {
             label: 'Cadastrar Conta',
-            icon: 'pi pi-plus',
+            icon: <IoIosAdd style={{fontSize: '1.5rem'}}/>,
             command: () => {
                 setVisible(true)
             }
