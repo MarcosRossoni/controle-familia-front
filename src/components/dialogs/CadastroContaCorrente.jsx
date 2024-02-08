@@ -38,7 +38,6 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
             fgAtiva: fgAtiva
         }
         if (idConta) {
-            console.log(contaBancariaDTO)
             contabancariaService.alterarContaBancaria(contaBancariaDTO)
                 .then((response) => {
                     console.log(response)

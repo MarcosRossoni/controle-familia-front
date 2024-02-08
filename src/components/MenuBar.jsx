@@ -1,6 +1,8 @@
 import {useRef} from 'react';
 import {Toast} from "primereact/toast";
 import {Menu} from "primereact/menu";
+import {FaLandmark} from "react-icons/fa";
+import {FaMoneyBillTransfer} from "react-icons/fa6";
 
 const MenuBar = () => {
     const toast = useRef(null);
@@ -10,12 +12,13 @@ const MenuBar = () => {
             items: [
                 {
                     label: 'Conta Banco',
-                    icon: 'pi pi-plus',
+                    icon: <FaLandmark className="pr-1"/>,
                     url: '/conta-bancaria'
                 },
                 {
-                    label: 'Search',
-                    icon: 'pi pi-search'
+                    label: 'Movimento',
+                    icon: <FaMoneyBillTransfer className="pr-1"/>,
+                    url: '/movimento'
                 }
             ]
         },

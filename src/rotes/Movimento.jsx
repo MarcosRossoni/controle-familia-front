@@ -1,17 +1,13 @@
 import React, {useState} from 'react';
-import CadastroContaCorrente from "../components/dialogs/CadastroContaCorrente.jsx";
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
-import ListContasBancarias from "../components/ListContasBancarias.jsx";
 
-const ContaBancaria = () => {
-    const [visible, setVisible] = useState(false)
-    const [reload, setReaload] = useState(false)
+const Movimento = () => {
     const [itemsMenu, setItemsMenu] = useState([
         {
             label: 'Cadastrar Conta',
             icon: 'pi pi-plus',
             command: () => {
-                setVisible(true)
+                console.log("add")
             }
         },
         {
@@ -33,20 +29,11 @@ const ContaBancaria = () => {
             icon: 'pi pi-upload'
         },
     ]);
-
-    const setHideDialog = (r, reload) => {
-        setVisible(r)
-        setReaload(reload)
-    }
-
     return (
         <div className="relative" style={{height: ("88vh")}}>
-            {visible ? <CadastroContaCorrente visible={visible} setHideDialog={setHideDialog} idConta={null}/> : <></>}
-            <ListContasBancarias reload={!reload}/>
             <ButtonSpeeddial itemsSpeed={itemsMenu}/>
         </div>
-
     );
 };
 
-export default ContaBancaria;
+export default Movimento;

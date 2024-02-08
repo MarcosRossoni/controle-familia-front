@@ -6,6 +6,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from "./rotes/Home.jsx";
 import ContaBancaria from "./rotes/ContaBancaria.jsx";
 import Usuario from "./rotes/Usuario.jsx";
+import Movimento from "./rotes/Movimento.jsx";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "/usuario",
                 element: <Usuario/>
+            },
+            {
+                path: "/movimento",
+                element: <Movimento/>
             }
         ]
     }

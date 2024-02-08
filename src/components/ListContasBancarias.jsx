@@ -4,7 +4,10 @@ import {DataScroller} from "primereact/datascroller";
 import CadastroContaCorrente from "./dialogs/CadastroContaCorrente.jsx";
 import {InputSwitch} from "primereact/inputswitch";
 import contabancariaService from "../services/contabancaria.service.js";
+import { Image } from 'primereact/image';
 import "./styled/ListContasStyled.css"
+import {FaMoneyBillTransfer, FaMoneyBillTrendUp} from "react-icons/fa6";
+import {FaPiggyBank} from "react-icons/fa";
 
 const ListContasBancarias = ({reload}) => {
 
@@ -74,7 +77,8 @@ const ListContasBancarias = ({reload}) => {
                             </div>
                             <div className="flex flex-column gap-2">
                                 <span className="flex align-items-center gap-2">
-                                    <i className="pi pi-tag product-category-icon"></i>
+                                    {data.fgContaBancaria === 0 ? <FaMoneyBillTransfer/> :
+                                        data.fgContaBancaria === 1 ? <FaPiggyBank /> : <FaMoneyBillTrendUp />}
                                     <span className="font-semibold">{verificarTipoConta(data.fgContaBancaria)}</span>
                                 </span>
                             </div>
@@ -95,11 +99,19 @@ const ListContasBancarias = ({reload}) => {
 
     return (
         <div>
-            <div className="mt-2 shadow-5">
-                <DataScroller value={listContas} itemTemplate={itemTemplate} rows={5} inline scrollHeight={`84.5vh`}
-                              header="Lista Contas Bancarias" className=""/>
-            </div>
-            {visible ? <CadastroContaCorrente visible={visible} setHideDialog={setHideDialog} idConta={idConta}/> : <></>}
+            {listContas.length > 0 ?
+                <div className="mt-2 shadow-5">
+                    <DataScroller value={listContas} itemTemplate={itemTemplate} rows={5} inline scrollHeight={`84.5vh`}
+                                  header="Lista Contas Bancarias" className=""/>
+                </div> :
+                <div className="card flex justify-content-center flex-column align-content-center w-full">
+                    <Image src="src/images/sem_conta_cadastrada.jpg" alt="Image"
+                           width="550" className="mx-auto"/>
+                    <label className="align-self-center">Não existe conta bancaria cadastrada</label>
+                </div>
+            }
+            {visible ?
+                <CadastroContaCorrente visible={visible} setHideDialog={setHideDialog} idConta={idConta}/> : <></>}
         </div>
     );
 };
