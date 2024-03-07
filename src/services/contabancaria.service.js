@@ -16,6 +16,11 @@ const contabancariaService = {
 
     async findListContas() {
         return pathBackend.get("/conta-bancaria")
+    },
+
+    async autoCompleteConta(dsConta) {
+        console.log(dsConta)
+        return pathBackend.get(`/conta-bancaria/buscar-conta/${dsConta}`)
     }
 }
 

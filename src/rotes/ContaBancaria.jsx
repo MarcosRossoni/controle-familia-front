@@ -21,6 +21,7 @@ const ContaBancaria = () => {
             label: 'Cadastrar Conta',
             icon: <IoIosAdd style={{fontSize: '1.5rem'}}/>,
             command: () => {
+                setIdConta(null)
                 setVisible(true)
             }
         },
@@ -89,7 +90,6 @@ const ContaBancaria = () => {
     }
 
     const itemTemplate = (data) => {
-        console.log(data)
         return (
             <div className="col-12">
                 <div className="card flex justify-content-end pr-4 pt-1">
@@ -127,7 +127,6 @@ const ContaBancaria = () => {
 
     return (
         <div className="relative" style={{height: ("88vh")}}>
-            {visible ? <CadastroContaCorrente visible={visible} setHideDialog={setHideDialog} idConta={null}/> : <></>}
             <div>
                 {listContas.length > 0 ?
                     <div className="mt-2 shadow-5">

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {AutoComplete} from "primereact/autocomplete";
 import '../styled/FormStyled.css'
-import pathBackend from "../../axios/config.js";
+import cidadeService from "../../services/cidade.service.js";
 
 const CidadeAutoComplete = ({cidadeDTO}) => {
     const [cidade, setCidade] = useState(null);
@@ -9,7 +9,7 @@ const CidadeAutoComplete = ({cidadeDTO}) => {
     const [filteredCidade, setFilteredCidade] = useState([])
 
     const buscarCidade = (e) => {
-         pathBackend.get(`cidades/buscar-cidade/${e.query}`)
+         cidadeService.autocompleteCidade(e.query)
             .then(function (response) {
                 setListCidades(response.data)
             })
