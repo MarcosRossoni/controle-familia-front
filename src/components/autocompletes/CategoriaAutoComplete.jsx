@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {AutoComplete} from "primereact/autocomplete";
 import categoriaService from "../../services/categoria.service.js";
 
-const CategoriaAutoComplete = ({categoriaDTO, tipoMovimento}) => {
+const CategoriaAutoComplete = ({categoriaDTO, tipoMovimento, categoriaEdit}) => {
     const [listCategoria, setListCategoria] = useState([]);
     const [filteredCategoria, setFilteredCategoria] = useState([])
-    const [categoria, setCategoria] = useState(null);
+    const [categoria, setCategoria] = useState();
 
     const buscarCategoria = (e) => {
-        console.log(e.query, tipoMovimento.code)
         categoriaService.autocompleteCategoria(e.query, tipoMovimento.code)
             .then(function (response) {
                 setListCategoria(response.data)
@@ -18,7 +17,7 @@ const CategoriaAutoComplete = ({categoriaDTO, tipoMovimento}) => {
     const addCategoriaDTO = (e) => {
         setCategoria(e)
         listCategoria.filter((item) => {
-            if (item.dsNome === e) {
+            if (item.dsDescricao === e) {
                 categoriaDTO(item)
             }
         })
@@ -31,7 +30,10 @@ const CategoriaAutoComplete = ({categoriaDTO, tipoMovimento}) => {
             listNomeCategoria.push(dsNome)
         })
         setFilteredCategoria(listNomeCategoria)
-
+        if (categoriaEdit){
+            setCategoria(categoriaEdit.dsDescricao)
+            console.log(categoria)
+        }
     },[listCategoria])
     return (
         <div>

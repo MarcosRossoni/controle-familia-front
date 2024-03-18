@@ -39,15 +39,13 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
         }
         if (idConta) {
             contabancariaService.alterarContaBancaria(contaBancariaDTO)
-                .then((response) => {
-                    console.log(response)
+                .then(() => {
                     setVisible(false, true)
                 })
             return
         }
         contabancariaService.cadastrarContaBancaria(contaBancariaDTO)
-            .then((resposne) => {
-                console.log(resposne.data)
+            .then(() => {
                 setVisible(false, true)
             })
     }

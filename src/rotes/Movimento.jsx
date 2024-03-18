@@ -4,10 +4,12 @@ import {Tag} from "primereact/tag";
 import movimentoService from "../services/movimento.service.js";
 import {DataScroller} from "primereact/datascroller";
 import CadastroMovimento from "../components/dialogs/CadastroMovimento.jsx";
+import {Button} from "primereact/button";
 
 const Movimento = () => {
     const [listMovimentos, setListmovimentos] = useState([]);
     const [visible, setVisible] = useState(false);
+    const [idMovimento, setIdMovimento] = useState(null);
     const [itemsMenu, setItemsMenu] = useState([
         {
             label: 'Cadastrar Movimento',
@@ -49,6 +51,11 @@ const Movimento = () => {
 
     const setHideDialog = (r) => {
         setVisible(r)
+    }
+
+    const editarMovimento = (id) => {
+        setIdMovimento(id)
+        setVisible(true)
     }
 
     useEffect(() => {
@@ -98,10 +105,10 @@ const Movimento = () => {
                         <div
                             className="flex flex-row lg:flex-column align-items-center lg:align-items-end gap-4 lg:gap-2">
                             <span className="text-2xl font-semibold">{formatNumber(data.vlMovimento)}</span>
-                            {/*<div className="col-12 text-right">*/}
-                            {/*    <Button icon="pi pi-pencil" onClick={() => editarConta(data.idContaBancaria)}*/}
-                            {/*            rounded text aria-label="Editar"/>*/}
-                            {/*</div>*/}
+                            <div className="col-12 text-right">
+                                <Button icon="pi pi-pencil" onClick={() => editarMovimento(data.idMovimento)}
+                                        rounded text aria-label="Editar"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -117,7 +124,7 @@ const Movimento = () => {
                               header="Lista Movimentos" className=""/>
             </div>
             <ButtonSpeeddial itemsSpeed={itemsMenu}/>
-            {visible ? <CadastroMovimento visible={visible} setHideDialog={setHideDialog}/> : <></>}
+            {visible ? <CadastroMovimento visible={visible} setHideDialog={setHideDialog} idMovimento={idMovimento}/> : <></>}
         </div>
     );
 };

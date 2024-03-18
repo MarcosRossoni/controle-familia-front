@@ -17,7 +17,7 @@ const ContaBancariaAutoComplete = ({contaBancariaDTO}) => {
     const addContaBancariaDTO = (e) => {
         setContaBancaria(e)
         listContas.filter((item) => {
-            if (item.dsNome === e) {
+            if (item.dsDescricao === e) {
                 contaBancariaDTO(item)
             }
         })
