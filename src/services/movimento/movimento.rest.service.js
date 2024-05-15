@@ -1,6 +1,6 @@
-import pathBackend from "../axios/config.js";
+import pathBackend from "../../axios/config.js";
 
-const movimentoService = {
+const movimentoRestService = {
     async listarMovimentos ()  {
         return pathBackend.get("/movimento/list-movimento")
     },
@@ -18,4 +18,4 @@ const movimentoService = {
     }
 }
 
-export default movimentoService;
+export default movimentoRestService;

@@ -5,7 +5,7 @@ import {Button} from "primereact/button";
 import {Dropdown} from "primereact/dropdown";
 import '../styled/FormStyled.css';
 import {Dialog} from "primereact/dialog";
-import contabancariaService from "../../services/contabancaria.service.js";
+import contabancariaService from "../../services/contabancaria/contabancaria.service.js";
 
 const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
     const [dsNome, setDsNome] = useState("")

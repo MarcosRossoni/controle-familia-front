@@ -9,8 +9,9 @@ import {Dropdown} from "primereact/dropdown";
 import '../styled/FormStyled.css';
 import ContaBancariaAutoComplete from "../autocompletes/ContaBancariaAutoComplete.jsx";
 import CategoriaAutoComplete from "../autocompletes/CategoriaAutoComplete.jsx";
-import movimentoService from "../../services/movimento.service.js";
+import movimentoService from "../../services/movimento/movimento.service.js";
 import moment from "moment/moment.js";
+import {AutoComplete} from "primereact/autocomplete";
 
 const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
 
@@ -58,18 +59,18 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
             vlMovimento: vlMovimento,
             dsDescricao: dsDescricao
         }
-         if (idMovimento !== null) {
-             movimentoService.editarMovimento(movimentoDTO)
-                 .then(() => {
-                     setVisible(false)
-                 });
-             return
-         }
+        if (idMovimento !== null) {
+            movimentoService.editarMovimento(movimentoDTO)
+                .then(() => {
+                    setVisible(false)
+                });
+            return
+        }
 
-         movimentoService.cadastroMovimento(movimentoDTO)
-             .then(() => {
-                 setVisible(false)
-             });
+        movimentoService.cadastroMovimento(movimentoDTO)
+            .then(() => {
+                setVisible(false)
+            });
 
     }
 
@@ -173,15 +174,17 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                         <label htmlFor="dtVencimento">Data Vencimento</label>
                     </span>
                     </div>
-                    {categoria && idMovimento ? <div className="field col-12 mt-4">
-                        <CategoriaAutoComplete categoriaDTO={setCategoriaDTO} tipoMovimento={fgTipoMovimento}
-                                               categoriaEdit={categoria}/>
-                    </div> : ""}
-                    {!idMovimento ?
-                        <div className="field col-12 mt-4">
-                        <CategoriaAutoComplete categoriaDTO={setCategoriaDTO} tipoMovimento={fgTipoMovimento}
-                                               categoriaEdit={categoria}/>
-                        </div>: ""}
+                    <div className="field col-12 mt-4">
+                        <span className="p-float-label">
+                            <AutoComplete id="contaBancaria" value={categoria} suggestions={filteredCategoria}
+                                          completeMethod={buscarCategoria}
+                                          onChange={(e) => addCategoriaDTO(e.value)}
+                                          className="text-base text-color surface-overlay border-1 border-solid surface-border
+                                            border-round appearance-none outline-none focus:border-primary w-full autocomplete"
+                                          inputClassName={'w-full autocomplete'}/>
+                            <label htmlFor="contaBancaria">Categoria</label>
+                        </span>
+                    </div>
                 </div>
             </Dialog>
         </div>

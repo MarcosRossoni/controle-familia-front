@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import CadastroContaCorrente from "../components/dialogs/CadastroContaCorrente.jsx";
+import CadastroContaCorrente from "../components/contacorrente/CadastroContaCorrente.jsx";
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
 import {IoIosAdd} from "react-icons/io";
-import contabancariaService from "../services/contabancaria.service.js";
+import contabancariaService from "../services/contabancaria/contabancaria.service.js";
 import {InputSwitch} from "primereact/inputswitch";
 import {FaMoneyBillTransfer, FaMoneyBillTrendUp} from "react-icons/fa6";
 import {FaPiggyBank} from "react-icons/fa";

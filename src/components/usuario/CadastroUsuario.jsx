@@ -4,11 +4,11 @@ import {InputText} from "primereact/inputtext";
 import {InputNumber} from "primereact/inputnumber";
 import {Button} from "primereact/button";
 import {Password} from "primereact/password";
-import './styled/FormStyled.css'
-import pathBackend from "../axios/config.js";
+import '../styled/FormStyled.css'
+import pathBackend from "../../axios/config.js";
 import {Calendar} from "primereact/calendar";
 import moment from "moment";
-import CidadeAutoComplete from "./autocompletes/CidadeAutoComplete.jsx";
+import CidadeAutoComplete from "../autocompletes/CidadeAutoComplete.jsx";
 
 const CadastroUsuario = () => {
     const [dsNome, setDsNome] = useState("")

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AutoComplete} from "primereact/autocomplete";
-import contabancariaService from "../../services/contabancaria.service.js";
+import contabancariaService from "../../services/contabancaria/contabancaria.service.js";
 
 const ContaBancariaAutoComplete = ({contaBancariaDTO}) => {
     const [listContas, setListContas] = useState([]);

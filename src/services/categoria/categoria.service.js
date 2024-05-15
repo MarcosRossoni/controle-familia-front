@@ -1,4 +1,4 @@
-import pathBackend from "../axios/config.js";
+import pathBackend from "../../axios/config.js";
 
 const categoriaService = {
     async autocompleteCategoria (query, fgTipo)  {

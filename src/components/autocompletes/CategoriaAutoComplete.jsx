@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AutoComplete} from "primereact/autocomplete";
-import categoriaService from "../../services/categoria.service.js";
+import categoriaService from "../../services/categoria/categoria.service.js";
 
 const CategoriaAutoComplete = ({categoriaDTO, tipoMovimento, categoriaEdit}) => {
     const [listCategoria, setListCategoria] = useState([]);

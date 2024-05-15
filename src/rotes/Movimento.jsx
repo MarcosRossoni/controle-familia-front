@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
 import {Tag} from "primereact/tag";
-import movimentoService from "../services/movimento.service.js";
+import movimentoService from "../services/movimento/movimento.service.js";
 import {DataScroller} from "primereact/datascroller";
-import CadastroMovimento from "../components/dialogs/CadastroMovimento.jsx";
+import CadastroMovimento from "../components/movimento/CadastroMovimento.jsx";
 import {Button} from "primereact/button";
 
 const Movimento = () => {

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {AutoComplete} from "primereact/autocomplete";
 import '../styled/FormStyled.css'
-import cidadeService from "../../services/cidade.service.js";
+import cidadeService from "../../services/cidade/cidade.service.js";
 
 const CidadeAutoComplete = ({cidadeDTO}) => {
     const [cidade, setCidade] = useState(null);
