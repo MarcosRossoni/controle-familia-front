@@ -66,6 +66,7 @@ const ContaBancaria = () => {
     ];
 
     useEffect(() => {
+
         loadListContas()
         setHideDialog()
     }, [reload])
