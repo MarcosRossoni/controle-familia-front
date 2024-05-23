@@ -66,6 +66,7 @@ const ContaBancaria = () => {
     ];
 
     useEffect(() => {
+
         loadListContas()
         setHideDialog()
     }, [reload])
@@ -135,7 +136,7 @@ const ContaBancaria = () => {
                                       header="Lista Contas Bancarias" className=""/>
                     </div> :
                     <div className="card flex justify-content-center flex-column align-content-center w-full">
-                        <Image src="src/images/sem_conta_cadastrada.jpg" alt="Image"
+                        <Image src="/sem_conta_cadastrada.jpg" alt="Image"
                                width="550" className="mx-auto"/>
                         <label className="align-self-center">Não existe conta bancaria cadastrada</label>
                     </div>
