@@ -1,12 +1,16 @@
 import React, {useEffect} from 'react';
-import {redirect} from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
 
 function Login(props) {
+
+    let navigateFunction = useNavigate();
     useEffect(() => {
-        redirect()
-    })
+    }, [])
+
     return (
-        <div>Login</div>
+        <div>
+            <h1>Login</h1>
+        </div>
     );
 }
 

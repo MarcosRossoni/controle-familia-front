@@ -1,12 +1,13 @@
 import Login from "./elementrotes/Login.jsx";
-import InitialPage from "./InitialPage.jsx";
+import App from "./App.jsx";
 
 export default function routes() {
     return{
-            element: <InitialPage/>,
+            element: <App/>,
             children: [
                 {path: "/login", element: <Login/>},
-                {path: "*", element: <div>Error</div>},
+                {path: "/signup", element: <h1>Cadastro</h1>},
+                {path: "/*", element: <div>Error</div>},
             ],
         }
 }

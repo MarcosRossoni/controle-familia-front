@@ -1,5 +1,6 @@
 import axios from "axios";
 import {getToken} from "../services/auth/auth.js";
+import {redirect} from "react-router-dom";
 
 const pathBackend = axios.create({
     baseURL: "http://localhost:8080",
@@ -7,15 +8,27 @@ const pathBackend = axios.create({
 })
 
 pathBackend.interceptors.request.use(async config => {
-    const token = getToken();
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-        config.headers["Content-Type"] = "application/json";
+        const token = getToken();
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+            config.headers["Content-Type"] = "application/json";
+        }
+
+        // config.auth = {password: "user", username: "user"}
+
+        return config;
+    }, error => {
+        return Promise.reject(error);
     }
+)
 
-    // config.auth = {password: "user", username: "user"}
-
-    return config;
+pathBackend.interceptors.response.use(async response => {
+    console.log("response", response);
+    return response;
+}, error => {
+    // if (error.response.status === 401) {
+        redirect("/login");
+    // }
 })
 
 export default pathBackend

@@ -1,11 +1,12 @@
 import React from 'react';
 import {PrimeReactProvider} from "primereact/api";
+import Login from "./elementrotes/Login.jsx";
 
 function InitialPage() {
     return (
         <div>
             <PrimeReactProvider>
-                <h1>Teste</h1>
+                <Login/>
             </PrimeReactProvider>
         </div>
     );
