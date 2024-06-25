@@ -1,35 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import Home from "./rotes/Home.jsx";
-import ContaBancaria from "./rotes/ContaBancaria.jsx";
-import Usuario from "./rotes/Usuario.jsx";
-import Movimento from "./rotes/Movimento.jsx";
+import {getToken} from "./services/auth/auth.js";
+import privateRoutes from "./privateRoutes.jsx";
+import routes from "./routes.jsx";
 
 const router = createBrowserRouter([
-    {
-        element: <App/>,
-        children: [
-            {
-                path: "/",
-                element: <Home/>
-            },
-            {
-                path: "/conta-bancaria",
-                element: <ContaBancaria/>
-            },
-            {
-                path: "/usuario",
-                element: <Usuario/>
-            },
-            {
-                path: "/movimento",
-                element: <Movimento/>
-            }
-        ]
-    }
+    getToken() ? privateRoutes() : routes()
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
