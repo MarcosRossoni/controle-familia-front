@@ -1,6 +1,6 @@
 import axios from "axios";
-import {getToken} from "../services/auth/auth.js";
 import {redirect} from "react-router-dom";
+import useAuth from "../context/useAuth.js";
 
 const pathBackend = axios.create({
     baseURL: "http://localhost:8080",
@@ -8,7 +8,7 @@ const pathBackend = axios.create({
 })
 
 pathBackend.interceptors.request.use(async config => {
-        const token = getToken();
+        const token = useAuth();
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
             config.headers["Content-Type"] = "application/json";
