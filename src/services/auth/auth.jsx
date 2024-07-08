@@ -1,33 +1,40 @@
 import {createContext, useEffect, useState} from "react";
+import pathBackend from "../../axios/config.js";
+import {redirect} from "react-router-dom";
 
 export const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({children}) => {
     const [user, setUser] = useState();
 
     useEffect(() => {
         const userToken = localStorage.getItem("user_token");
-        const usersStorage = localStorage.getItem("users_bd");
 
-        if (userToken && usersStorage) {
-            const hasUser = JSON.parse(usersStorage)?.filter(
-                (user) => user.email === JSON.parse(userToken).email
-            );
-
-            if (hasUser) setUser(hasUser[0]);
+        if (userToken) {
+            setUser(true)
         }
     }, []);
 
     const signin = (email, password) => {
-        const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
 
-        const hasUser = usersStorage?.filter((user) => user.email === email);
+        pathBackend.get(
+            `/oauth/token?username=${email}&password=${password}&grant_type=password`
+        ).then(function(res) {
+            console.log(res)
+            if (res.status === 200) {
+                localStorage.setItem("user_token", JSON.stringify(res.data));
+                setUser(true)
+                window.location.href = "/";
+            }
+        });
+
+        const hasUser = true;
 
         if (hasUser?.length) {
             if (hasUser[0].email === email && hasUser[0].password === password) {
                 const token = Math.random().toString(36).substring(2);
-                localStorage.setItem("user_token", JSON.stringify({ email, token }));
-                setUser({ email, password });
+                localStorage.setItem("user_token", JSON.stringify({email, token}));
+                setUser({email, password});
                 return;
             } else {
                 return "E-mail ou senha incorretos";
@@ -49,9 +56,9 @@ export const AuthProvider = ({ children }) => {
         let newUser;
 
         if (usersStorage) {
-            newUser = [...usersStorage, { email, password }];
+            newUser = [...usersStorage, {email, password}];
         } else {
-            newUser = [{ email, password }];
+            newUser = [{email, password}];
         }
 
         localStorage.setItem("users_bd", JSON.stringify(newUser));
@@ -66,7 +73,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider
-            value={{ user, signed: !!user, signin, signup, signout }}
+            value={{user, signed: !!user, signin, signup, signout}}
         >
             {children}
         </AuthContext.Provider>
