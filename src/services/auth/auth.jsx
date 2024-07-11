@@ -44,26 +44,14 @@ export const AuthProvider = ({children}) => {
         }
     };
 
-    const signup = (email, password) => {
-        const usersStorage = JSON.parse(localStorage.getItem("users_bd"));
-
-        const hasUser = usersStorage?.filter((user) => user.email === email);
-
-        if (hasUser?.length) {
-            return "Já tem uma conta com esse E-mail";
-        }
-
-        let newUser;
-
-        if (usersStorage) {
-            newUser = [...usersStorage, {email, password}];
-        } else {
-            newUser = [{email, password}];
-        }
-
-        localStorage.setItem("users_bd", JSON.stringify(newUser));
-
-        return;
+    const signup = (usuarioDTO) => {
+        pathBackend.post(`/usuario`, usuarioDTO)
+            .then(function (res) {
+                console.log(res)
+                if (res.status === 200) {
+                    window.location.href = "/login";
+                }
+            });
     };
 
     const signout = () => {
