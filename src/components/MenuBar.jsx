@@ -1,7 +1,7 @@
 import {useRef} from 'react';
 import {Toast} from "primereact/toast";
 import {Menu} from "primereact/menu";
-import {FaLandmark} from "react-icons/fa";
+import {FaBookmark, FaLandmark} from "react-icons/fa";
 import {FaMoneyBillTransfer} from "react-icons/fa6";
 
 const MenuBar = () => {
@@ -19,6 +19,11 @@ const MenuBar = () => {
                     label: 'Movimento',
                     icon: <FaMoneyBillTransfer className="pr-1"/>,
                     url: '/movimento'
+                },
+                {
+                    label: 'Categoria',
+                    icon: <FaBookmark className="pr-1"/>,
+                    url: '/categoria'
                 }
             ]
         },

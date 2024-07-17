@@ -8,10 +8,9 @@ import {InputSwitch} from "primereact/inputswitch";
 import {Dropdown} from "primereact/dropdown";
 import '../styled/FormStyled.css';
 import ContaBancariaAutoComplete from "../autocompletes/ContaBancariaAutoComplete.jsx";
-import CategoriaAutoComplete from "../autocompletes/CategoriaAutoComplete.jsx";
 import movimentoService from "../../services/movimento/movimento.service.js";
 import moment from "moment/moment.js";
-import {AutoComplete} from "primereact/autocomplete";
+import CategoriaAutoComplete from "../autocompletes/CategoriaAutoComplete.jsx";
 
 const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
 
@@ -21,12 +20,12 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
     const [dtVencimento, setDtVencimento] = useState()
     const [dtMovimento, setDtMovimento] = useState()
     const [fgTipoMovimento, setFgTipoMovimento] = useState()
-    const [fgConciliarAutomatico, setFgConciliarAutomatico] = useState()
+    const [fgConciliarAutomatico, setFgConciliarAutomatico] = useState(false)
     const [contaBancaria, setContaBancaria] = useState()
     const [categoria, setCategoria] = useState(null)
 
-    const setVisible = (r) => {
-        setHideDialog(r)
+    const setVisible = (r, reload) => {
+        setHideDialog(r, reload)
         return false
     }
 
@@ -62,14 +61,14 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
         if (idMovimento !== null) {
             movimentoService.editarMovimento(movimentoDTO)
                 .then(() => {
-                    setVisible(false)
+                    setVisible(false, true)
                 });
             return
         }
 
         movimentoService.cadastroMovimento(movimentoDTO)
             .then(() => {
-                setVisible(false)
+                setVisible(false, true)
             });
 
     }
@@ -143,7 +142,7 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                         <label htmlFor="vlMovimento">Qtd Parcelas</label>
                     </span>
                     </div>
-                    <div className="field col-12 lg:col-6 mt-4">
+                    <div className="field col-12 mt-4">
                         <span className="p-float-label">
                             <Dropdown value={fgTipoMovimento} onChange={(e) => setFgTipoMovimento(e.value)}
                                       options={tipoMovimento}
@@ -175,15 +174,7 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                     </span>
                     </div>
                     <div className="field col-12 mt-4">
-                        <span className="p-float-label">
-                            <AutoComplete id="contaBancaria" value={categoria} suggestions={filteredCategoria}
-                                          completeMethod={buscarCategoria}
-                                          onChange={(e) => addCategoriaDTO(e.value)}
-                                          className="text-base text-color surface-overlay border-1 border-solid surface-border
-                                            border-round appearance-none outline-none focus:border-primary w-full autocomplete"
-                                          inputClassName={'w-full autocomplete'}/>
-                            <label htmlFor="contaBancaria">Categoria</label>
-                        </span>
+                        <CategoriaAutoComplete categoriaDTO={setCategoriaDTO} tipoMovimento={fgTipoMovimento}/>
                     </div>
                 </div>
             </Dialog>

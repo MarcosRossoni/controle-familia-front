@@ -5,10 +5,13 @@ import movimentoService from "../services/movimento/movimento.service.js";
 import {DataScroller} from "primereact/datascroller";
 import CadastroMovimento from "../components/movimento/CadastroMovimento.jsx";
 import {Button} from "primereact/button";
+import CadastroCategoria from "../components/categoria/CadastroCategoria.jsx";
 
 const Movimento = () => {
     const [listMovimentos, setListmovimentos] = useState([]);
     const [visible, setVisible] = useState(false);
+    const [reload, setReaload] = useState(false)
+    const [visibleCategoria, setVisibleCategoria] = useState(false);
     const [idMovimento, setIdMovimento] = useState(null);
     const [itemsMenu, setItemsMenu] = useState([
         {
@@ -19,10 +22,10 @@ const Movimento = () => {
             }
         },
         {
-            label: 'Update',
-            icon: 'pi pi-refresh',
+            label: 'Cadastro Categoria',
+            icon: 'pi pi-bookmark-fill',
             command: () => {
-                toast.current.show({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
+                setVisibleCategoria(true)
             }
         },
         {
@@ -35,7 +38,7 @@ const Movimento = () => {
         {
             label: 'Upload',
             icon: 'pi pi-upload'
-        },
+        }
     ]);
 
     const listarMovimento = () => {
@@ -49,8 +52,13 @@ const Movimento = () => {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n)
     }
 
-    const setHideDialog = (r) => {
+    const setHideDialog = (r, reload) => {
         setVisible(r)
+        setReaload(reload)
+    }
+
+    const setHideDialogCategoria = (r) => {
+        setVisibleCategoria(r)
     }
 
     const editarMovimento = (id) => {
@@ -60,7 +68,7 @@ const Movimento = () => {
 
     useEffect(() => {
         listarMovimento()
-    }, []);
+    }, [reload]);
 
     const itemTemplate = (data) => {
         return (
@@ -125,6 +133,7 @@ const Movimento = () => {
             </div>
             <ButtonSpeeddial itemsSpeed={itemsMenu}/>
             {visible ? <CadastroMovimento visible={visible} setHideDialog={setHideDialog} idMovimento={idMovimento}/> : <></>}
+            {visibleCategoria ? <CadastroCategoria visible={visibleCategoria} setHideDialog={setHideDialogCategoria}/> : <></>}
         </div>
     );
 };

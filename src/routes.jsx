@@ -1,13 +1,14 @@
-import Login from "./elementrotes/Login.jsx";
+import Login from "./elements/Login.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Fragment} from "react";
-import Home from "./elementrotes/Home.jsx";
-import ContaBancaria from "./elementrotes/ContaBancaria.jsx";
-import Usuario from "./elementrotes/Usuario.jsx";
-import Movimento from "./elementrotes/Movimento.jsx";
+import Home from "./elements/Home.jsx";
+import ContaBancaria from "./elements/ContaBancaria.jsx";
+import Usuario from "./elements/Usuario.jsx";
+import Movimento from "./elements/Movimento.jsx";
 import GlobalTemplate from "./components/GlobalTemplate.jsx";
 import useAuth from "./context/useAuth.js";
 import CadastroUsuario from "./components/usuario/CadastroUsuario.jsx";
+import Categoria from "./elements/Categoria.jsx";
 
 const Private = ({Item}) => {
     const {signed} = useAuth();
@@ -26,6 +27,7 @@ const RoutesApp = () => {
                     <Route exact path="/conta-bancaria" element={<Private Item={ContaBancaria}/>}/>
                     <Route exact path="/usuario" element={<Private Item={Usuario}/>}/>
                     <Route exact path="/movimento" element={<Private Item={Movimento}/>}/>
+                    <Route exact path="/categoria" element={<Private Item={Categoria}/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route exact path="/signup" element={<CadastroUsuario/>}/>
                     <Route path="*" element={<Login/>}/>

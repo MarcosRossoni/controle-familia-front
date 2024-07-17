@@ -16,6 +16,7 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
     const [vlSaldoIncial, setVlSaldoIncial] = useState(null);
     const [vlSaldoAtual, setVlSaldoAtual] = useState(null);
     const [fgAtiva,  setFgAtiva] = useState()
+    const [errors, setErrors] = useState({})
 
     const tipoConta = [
         { name: 'CONTA CORRENTE', code: 0 },
@@ -26,28 +27,77 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
     const createContaBancaria = async(e) => {
         e.preventDefault()
 
-        const contaBancariaDTO = {
-            idContaBancaria: idConta,
-            dsDescricao: dsNome,
-            dsBanco: dsBanco,
-            numConta: conta?.toString(),
-            numAgencia: agencia?.toString(),
-            fgContaBancaria: fgTipoConta.code,
-            vlSaldoIncial: vlSaldoIncial,
-            vlSaldoAtual: vlSaldoAtual,
-            fgAtiva: fgAtiva
-        }
-        if (idConta) {
-            contabancariaService.alterarContaBancaria(contaBancariaDTO)
+        if (validation()) {
+            const contaBancariaDTO = {
+                idContaBancaria: idConta,
+                dsDescricao: dsNome,
+                dsBanco: dsBanco,
+                numConta: conta?.toString(),
+                numAgencia: agencia?.toString(),
+                fgContaBancaria: fgTipoConta.code,
+                vlSaldoIncial: vlSaldoIncial,
+                vlSaldoAtual: vlSaldoAtual,
+                fgAtiva: fgAtiva
+            }
+            if (idConta) {
+                contabancariaService.alterarContaBancaria(contaBancariaDTO)
+                    .then(() => {
+                        setVisible(false, true)
+                    })
+                return
+            }
+            contabancariaService.cadastrarContaBancaria(contaBancariaDTO)
                 .then(() => {
                     setVisible(false, true)
                 })
-            return
         }
-        contabancariaService.cadastrarContaBancaria(contaBancariaDTO)
-            .then(() => {
-                setVisible(false, true)
-            })
+    }
+
+    const validation = () => {
+        let isValid = true;
+
+        const errors = {
+            dsNome: '',
+            dsBanco: '',
+            conta: '',
+            agencia: '',
+            fgTipoConta: '',
+            vlSaldoInicial: ''
+        };
+
+        if (!dsNome) {
+            errors.dsNome = 'Nome é obrigatório'
+            isValid = false
+        }
+
+        if (!dsBanco) {
+            errors.dsBanco = 'Nome do banco é obrigatório'
+            isValid = false
+        }
+
+        if (!conta) {
+            errors.conta = 'Numero da conta é obrigatório'
+            isValid = false
+        }
+
+        if (!agencia) {
+            errors.agencia = 'Numero da agência é obrigatório'
+            isValid = false
+        }
+
+        if (!fgTipoConta) {
+            errors.fgTipoConta = 'Tipo da conta é obrigatória'
+            isValid = false
+        }
+
+        if (!vlSaldoIncial) {
+            errors.vlSaldoInicial = 'Saldo inicial é obrigatório'
+            isValid = false
+        }
+
+        setErrors(errors)
+        return isValid
+
     }
 
     const setVisible = (r, reload) => {
@@ -96,6 +146,7 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
                                    className="text-base text-color surface-overlay p-2 border-1 border-solid
                                     surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                         <label htmlFor="dsNome" className="">Nome da Conta</label>
+                        {errors.dsNome && <small style={{ color: 'red', marginLeft: '10px' }}>{errors.dsNome}</small>}
                     </span>
                     </div>
                     <div className="field col-12 md:col-6 mt-4">
@@ -105,6 +156,7 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
                                    className="text-base text-color surface-overlay p-2 border-1 border-solid
                                     surface-border border-round appearance-none outline-none focus:border-primary w-full"/>
                         <label htmlFor="banco">Banco</label>
+                        {errors.dsBanco && <small style={{ color: 'red', marginLeft: '10px' }}>{errors.dsBanco}</small>}
                     </span>
                     </div>
                     <div className="field col-12 md:col-6 mt-4">
@@ -116,6 +168,7 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
                                      border-round appearance-none outline-none focus:border-primary w-full input-number"
                                      inputClassName={'input-number'}/>
                         <label htmlFor="conta">Num Conta</label>
+                        {errors.conta && <small style={{ color: 'red', marginLeft: '10px' }}>{errors.conta}</small>}
                     </span>
                     </div>
                     <div className="field col-12 md:col-6 mt-4">
@@ -127,6 +180,7 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
                                      border-round appearance-none outline-none focus:border-primary w-full input-number"
                                      inputClassName={'input-number'}/>
                         <label htmlFor="agencia">Num Agencia</label>
+                        {errors.agencia && <small style={{ color: 'red', marginLeft: '10px' }}>{errors.agencia}</small>}
                     </span>
                     </div>
                     <div className="field col-12 md:col-6 mt-4">
@@ -137,6 +191,7 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
                                       className="text-base text-color surface-overlay border-1 border-solid surface-border
                                      border-round appearance-none outline-none focus:border-primary w-full dropdown-component"/>
                             <label htmlFor="fgTipoConta">Tipo Conta</label>
+                            {errors.fgTipoConta && <small style={{ color: 'red', marginLeft: '10px' }}>{errors.fgTipoConta}</small>}
                         </span>
                     </div>
                     <div className="field col-12 md:col-6 mt-4">
@@ -147,7 +202,8 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
                                      border-round appearance-none outline-none focus:border-primary w-full input-number"
                                      inputClassName={'input-number'}/>
-                            <label htmlFor="vlSaldoIncial">Saldo Incial</label>
+                            <label htmlFor="vlSaldoIncial">Saldo Incial (R$)</label>
+                            {errors.vlSaldoInicial && <small style={{ color: 'red', marginLeft: '10px' }}>{errors.vlSaldoInicial}</small>}
                         </span>
                     </div>
                     <div className="field col-12 md:col-6 mt-4">
@@ -157,8 +213,8 @@ const CadastroContaCorrente = ({visible, setHideDialog, idConta}) => {
                                      locale="de-DE" minFractionDigits={2}
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
                                      border-round appearance-none outline-none focus:border-primary w-full input-number"
-                                     inputClassName={'input-number'} disabled={idConta}/>
-                            <label htmlFor="vlSaldoIncial">Saldo Atual</label>
+                                     inputClassName={'input-number'} disabled/>
+                            <label htmlFor="vlSaldoIncial">Saldo Atual (R$)</label>
                         </span>
                     </div>
                 </div>

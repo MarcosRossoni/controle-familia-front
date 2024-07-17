@@ -10,9 +10,12 @@ function Login(props) {
     const [dsEmail, setDsEmail] = useState('')
     const [dsSenha, setDsSenha] = useState('')
 
-    const {signin, signed} = useAuth();
+    const {signin, signed, signout} = useAuth();
 
     useEffect(() => {
+        // if (!signed) {
+        //     signout()
+        // }
         console.log(signed)
     }, []);
 
@@ -27,16 +30,6 @@ function Login(props) {
     function criarConta() {
         window.location.href = "/signup"
     }
-
-    const validationSchema = yup.object({
-        dsEmail: yup
-            .string()
-            .email('Insira um e-mail valido')
-            .required('E-mail obrigatório'),
-        dsSenha: yup
-            .string()
-            .required('Senha obrigatória')
-    })
 
     const containerClassName = classNames('surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden');
     return (

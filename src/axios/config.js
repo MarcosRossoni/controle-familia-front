@@ -30,7 +30,7 @@ pathBackend.interceptors.response.use(async response => {
     console.log(error)
     let status = error.response.status;
     if (status === 401 && TOKEN) {
-        console.log(error.response.status);
+        localStorage.removeItem("user_token");
         window.location.href = "/login";
         return
     }
