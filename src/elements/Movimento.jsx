@@ -6,6 +6,8 @@ import {DataScroller} from "primereact/datascroller";
 import CadastroMovimento from "../components/movimento/CadastroMovimento.jsx";
 import {Button} from "primereact/button";
 import CadastroCategoria from "../components/categoria/CadastroCategoria.jsx";
+import {Paginator} from "primereact/paginator";
+import {DataView} from "primereact/dataview";
 
 const Movimento = () => {
     const [listMovimentos, setListmovimentos] = useState([]);
@@ -13,6 +15,8 @@ const Movimento = () => {
     const [reload, setReaload] = useState(false)
     const [visibleCategoria, setVisibleCategoria] = useState(false);
     const [idMovimento, setIdMovimento] = useState(null);
+    const [first, setFirst] = useState(0);
+    const [rows, setRows] = useState(10);
     const [itemsMenu, setItemsMenu] = useState([
         {
             label: 'Cadastrar Movimento',
@@ -48,6 +52,12 @@ const Movimento = () => {
             })
     }
 
+    const onPageChange = (event) => {
+        console.log(event)
+        setFirst(event.first);
+        setRows(event.rows);
+    };
+
     const formatNumber = (n) => {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n)
     }
@@ -77,8 +87,7 @@ const Movimento = () => {
 
                 </div>
                 <div className="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                    <div
-                        className="flex flex-column lg:flex-row justify-content-between align-items-center xl:align-items-start lg:flex-1 gap-4">
+                    <div className="flex flex-column lg:flex-row justify-content-between align-items-center xl:align-items-start lg:flex-1 gap-4">
                         <div className="flex flex-column align-items-center lg:align-items-start gap-3">
                             <div className="flex flex-row gap-5">
                                 <div className="flex flex-row gap-1">
@@ -125,15 +134,20 @@ const Movimento = () => {
     };
 
     return (
-        <div className="relative" style={{height: ("88vh")}}>
-            <div className="mt-2 shadow-5">
-                <DataScroller value={listMovimentos} itemTemplate={itemTemplate} rows={5} inline
-                              scrollHeight={`84.5vh`}
-                              header="Lista Movimentos" className=""/>
+        <div>
+            <div className="relative" style={{height: ("88vh")}}>
+                <div className="mt-2 shadow-5">
+                    <DataView value={listMovimentos} itemTemplate={itemTemplate} rows={rows} inline paginator
+                              header="Lista Movimentos" className="">
+                    </DataView>
+                    {/*<Paginator first={first} rows={rows} totalRecords={120} onPageChange={onPageChange}/>*/}
+                </div>
+                {visible ? <CadastroMovimento visible={visible} setHideDialog={setHideDialog}
+                                              idMovimento={idMovimento}/> : <></>}
+                {visibleCategoria ?
+                    <CadastroCategoria visible={visibleCategoria} setHideDialog={setHideDialogCategoria}/> : <></>}
             </div>
             <ButtonSpeeddial itemsSpeed={itemsMenu}/>
-            {visible ? <CadastroMovimento visible={visible} setHideDialog={setHideDialog} idMovimento={idMovimento}/> : <></>}
-            {visibleCategoria ? <CadastroCategoria visible={visibleCategoria} setHideDialog={setHideDialogCategoria}/> : <></>}
         </div>
     );
 };

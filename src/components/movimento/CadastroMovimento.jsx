@@ -23,6 +23,8 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
     const [fgConciliarAutomatico, setFgConciliarAutomatico] = useState(false)
     const [contaBancaria, setContaBancaria] = useState()
     const [categoria, setCategoria] = useState(null)
+    const [idConta, setIdConta] = useState(null)
+    const [idCategoria, setIdCategoria] = useState(null)
 
     const setVisible = (r, reload) => {
         setHideDialog(r, reload)
@@ -34,13 +36,12 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
     }
 
     const setCategoriaDTO = (categoria) => {
-        console.log(categoria)
         setCategoria(categoria)
     }
 
     const tipoMovimento = [
-        { name: 'RECEITA', code: 0 },
-        { name: 'DESPESA', code: 1 }
+        {name: 'RECEITA', code: 0},
+        {name: 'DESPESA', code: 1}
     ];
 
     const createMovimento = async (e) => {
@@ -83,6 +84,11 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
     }, [visible]);
 
     const construirObjectEdit = (movimentoEdit) => {
+        setDsDescricao(movimentoEdit.dsDescricao)
+        setVlMovimento(Math.abs(movimentoEdit.vlMovimento))
+        setIdConta(movimentoEdit.contaBancaria.idContaBancaria)
+        setIdCategoria(movimentoEdit.categoria.idCategoria)
+        setFgConciliarAutomatico(movimentoEdit.fgConciliarAutomatico)
         setQtdParcelas(movimentoEdit.qtdParcelas)
         setDtVencimento(new Date(Date.parse(movimentoEdit.dtVencimento)))
         setDtMovimento(new Date(Date.parse(movimentoEdit.dtMovimento)))
@@ -90,12 +96,24 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
         setCategoriaDTO(movimentoEdit.categoria)
     }
 
+    const autoCompleteContaContent = () => {
+        if (idConta !== null) {
+            return <ContaBancariaAutoComplete contaBancariaDTO={setContaBancariaDTO} idContaBancaria={idConta}/>
+        }
+    }
+
+    const autoCompleteCategoria = () => {
+        if (idCategoria !== null) {
+           return <CategoriaAutoComplete categoriaDTO={setCategoriaDTO} tipoMovimento={fgTipoMovimento} idCategoria={idCategoria}/>
+        }
+    }
+
     const footerContent = (
         <div>
-            <Button label="Cancelar" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
+            <Button label="Cancelar" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text"/>
             <Button label="Salvar" disabled={false} type="submit" icon="pi pi-check" onClick={(e) => {
                 createMovimento(e)
-            }} autoFocus />
+            }} autoFocus/>
         </div>
     );
     return (
@@ -118,7 +136,10 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                     </span>
                     </div>
                     <div className="field col-12 mt-4">
-                        <ContaBancariaAutoComplete contaBancariaDTO={setContaBancariaDTO}/>
+                        {idMovimento !== null ?
+                            autoCompleteContaContent(null) :
+                            <ContaBancariaAutoComplete contaBancariaDTO={setContaBancariaDTO} idContaBancaria={idConta}/>
+                        }
                     </div>
                     <div className="field col-12 lg:col-6 mt-4">
                     <span className="p-float-label">
@@ -174,7 +195,10 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                     </span>
                     </div>
                     <div className="field col-12 mt-4">
-                        <CategoriaAutoComplete categoriaDTO={setCategoriaDTO} tipoMovimento={fgTipoMovimento}/>
+                        {idMovimento !== null ?
+                            autoCompleteCategoria() :
+                            <CategoriaAutoComplete categoriaDTO={setCategoriaDTO} tipoMovimento={fgTipoMovimento} idCategoria={idCategoria}/>
+                        }
                     </div>
                 </div>
             </Dialog>

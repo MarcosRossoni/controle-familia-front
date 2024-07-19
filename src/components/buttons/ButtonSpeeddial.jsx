@@ -7,7 +7,7 @@ const ButtonSpeeddial = ({itemsSpeed}) => {
     const toast = useRef(null);
 
     return (
-        <div className="card">
+        <div className="card relative">
             <Speeddial>
                 <Toast ref={toast} />
                 <div className="absolute bottom-0 right-0">

@@ -56,7 +56,6 @@ const Categoria = () => {
     }
 
     const onPageChange = (event) => {
-        console.log(event)
         setFirst(event.first);
         setRows(event.rows);
         changeList(event.page)
