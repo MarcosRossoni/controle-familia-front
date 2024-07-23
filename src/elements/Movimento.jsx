@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
 import {Tag} from "primereact/tag";
 import movimentoService from "../services/movimento/movimento.service.js";
-import {DataScroller} from "primereact/datascroller";
 import CadastroMovimento from "../components/movimento/CadastroMovimento.jsx";
 import {Button} from "primereact/button";
 import CadastroCategoria from "../components/categoria/CadastroCategoria.jsx";
-import {Paginator} from "primereact/paginator";
 import {DataView} from "primereact/dataview";
 
 const Movimento = () => {
@@ -135,10 +133,10 @@ const Movimento = () => {
 
     return (
         <div>
-            <div className="relative" style={{height: ("88vh")}}>
+            <div style={{height: ("88vh")}}>
                 <div className="mt-2 shadow-5">
-                    <DataView value={listMovimentos} itemTemplate={itemTemplate} rows={rows} inline paginator
-                              header="Lista Movimentos" className="">
+                    <DataView value={listMovimentos} itemTemplate={itemTemplate} rows={rows} paginator
+                              header="Lista Movimentos">
                     </DataView>
                     {/*<Paginator first={first} rows={rows} totalRecords={120} onPageChange={onPageChange}/>*/}
                 </div>

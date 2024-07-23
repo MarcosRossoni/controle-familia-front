@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import CadastroContaCorrente from "../components/contacorrente/CadastroContaCorrente.jsx";
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
 import {IoIosAdd} from "react-icons/io";

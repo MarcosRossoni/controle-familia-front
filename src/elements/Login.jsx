@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import useAuth from "../context/useAuth.js";
 import {classNames} from "primereact/utils";
 import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
-import * as yup from "yup";
 
 function Login(props) {
 

@@ -1,6 +1,5 @@
 import {createContext, useEffect, useState} from "react";
 import pathBackend from "../../axios/config.js";
-import {redirect} from "react-router-dom";
 
 export const AuthContext = createContext({});
 
