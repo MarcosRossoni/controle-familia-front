@@ -127,7 +127,7 @@ const ContaBancaria = () => {
     };
 
     return (
-        <div className="relative" style={{height: ("88vh")}}>
+        <div style={{height: ("88vh")}}>
             <div>
                 {listContas.length > 0 ?
                     <div className="mt-2 shadow-5">

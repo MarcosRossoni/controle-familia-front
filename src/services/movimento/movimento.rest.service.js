@@ -1,8 +1,8 @@
 import pathBackend from "../../axios/config.js";
 
 const movimentoRestService = {
-    async listarMovimentos ()  {
-        return pathBackend.get("/movimento/list-movimento")
+    async listarMovimentos (query)  {
+        return pathBackend.get(`/movimento/list-movimento${query}`)
     },
 
     async findById (idMovimento)  {

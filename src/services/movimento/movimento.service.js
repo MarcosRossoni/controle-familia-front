@@ -1,8 +1,8 @@
 import movimentoRestService from "./movimento.rest.service.js";
 
 const movimentoService = {
-    async listarMovimentos () {
-        return movimentoRestService.listarMovimentos();
+    async listarMovimentos (query) {
+        return movimentoRestService.listarMovimentos(query);
     },
 
     async findById (idMovimento) {

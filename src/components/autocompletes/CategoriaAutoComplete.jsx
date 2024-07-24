@@ -40,6 +40,7 @@ const CategoriaAutoComplete = ({categoriaDTO, tipoMovimento, idCategoria}) => {
                 listNomeCategoria.push(dsNome)
             })
             setFilteredCategoria(listNomeCategoria)
+            return
         }
 
         if (!trocaCategoria) {

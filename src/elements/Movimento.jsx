@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
 import {Tag} from "primereact/tag";
 import movimentoService from "../services/movimento/movimento.service.js";
@@ -6,8 +6,17 @@ import CadastroMovimento from "../components/movimento/CadastroMovimento.jsx";
 import {Button} from "primereact/button";
 import CadastroCategoria from "../components/categoria/CadastroCategoria.jsx";
 import {DataView} from "primereact/dataview";
+import {Divider} from "primereact/divider";
+import {OverlayPanel} from "primereact/overlaypanel";
+import {Paginator} from "primereact/paginator";
+import FilterMovimento from "../components/movimento/FilterMovimento.jsx";
+import moment from "moment";
+import {Image} from "primereact/image";
 
 const Movimento = () => {
+    const date = new Date();
+
+    let op = useRef(null);
     const [listMovimentos, setListmovimentos] = useState([]);
     const [visible, setVisible] = useState(false);
     const [reload, setReaload] = useState(false)
@@ -15,6 +24,15 @@ const Movimento = () => {
     const [idMovimento, setIdMovimento] = useState(null);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
+    const [totalItens, setTotalItens] = useState(0);
+    const [pag, setPage] = useState(null);
+    const [filter, setFilter] = useState({
+        dtInicio: moment().startOf('month').format('YYYY-MM-DD'),
+        dtFim: moment().endOf('month').format('YYYY-MM-DD'),
+        fgTipoMovimento: null,
+        idCategoria: null
+    });
+
     const [itemsMenu, setItemsMenu] = useState([
         {
             label: 'Cadastrar Movimento',
@@ -43,19 +61,6 @@ const Movimento = () => {
         }
     ]);
 
-    const listarMovimento = () => {
-        movimentoService.listarMovimentos()
-            .then(function (response) {
-                setListmovimentos(response.data)
-            })
-    }
-
-    const onPageChange = (event) => {
-        console.log(event)
-        setFirst(event.first);
-        setRows(event.rows);
-    };
-
     const formatNumber = (n) => {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n)
     }
@@ -74,8 +79,44 @@ const Movimento = () => {
         setVisible(true)
     }
 
+    const buscarMovimentoFilter = (pagina) => {
+        let queryFilter = '';
+        op.current.hide()
+        if (filter.dtInicio !== null) {
+            queryFilter = queryFilter + `&dtInicio=${filter.dtInicio}&dtFim=${filter.dtFim}`
+        }
+        if (filter.fgTipoMovimento !== null) {
+            queryFilter = queryFilter + `&fgTipoMovimento=${filter.fgTipoMovimento}`
+        }
+        if (filter.idCategoria !== null) {
+            queryFilter = queryFilter + `&idCategoria=${filter.idCategoria}`
+        }
+        listarMovimento(pagina, queryFilter)
+    }
+
+    const onPageChange = (event) => {
+        setFirst(event.first);
+        setRows(event.rows);
+        listarMovimento(event.page, '')
+    };
+
+    const listarMovimento = (paginaAtual, queryFilter) => {
+        setPage(paginaAtual)
+        let query = `?currentPage=${paginaAtual}&pageSize=10${queryFilter}`
+        movimentoService.listarMovimentos(query)
+            .then(function (res) {
+                setTotalItens(res.data.totalItens)
+                setListmovimentos(res.data.data)
+            })
+    }
+
     useEffect(() => {
-        listarMovimento()
+        if (!reload){
+            buscarMovimentoFilter(0)
+        } else {
+            buscarMovimentoFilter(pag)
+            setHideDialog()
+        }
     }, [reload]);
 
     const itemTemplate = (data) => {
@@ -118,8 +159,8 @@ const Movimento = () => {
                             </div>
                         </div>
                         <div
-                            className="flex flex-row lg:flex-column align-items-center lg:align-items-end gap-4 lg:gap-2">
-                            <span className="text-2xl font-semibold">{formatNumber(data.vlMovimento)}</span>
+                            className="flex flex-row lg:flex-column align-items-center lg:align-items-end gap-2">
+                            <span className="text-2xl white-space-nowrap font-semibold">{formatNumber(data.vlMovimento)}</span>
                             <div className="col-12 text-right">
                                 <Button icon="pi pi-pencil" onClick={() => editarMovimento(data.idMovimento)}
                                         rounded text aria-label="Editar"/>
@@ -132,13 +173,31 @@ const Movimento = () => {
     };
 
     return (
-        <div>
-            <div style={{height: ("88vh")}}>
+        <div style={{height: ("88vh")}}>
+            <div>
                 <div className="mt-2 shadow-5">
-                    <DataView value={listMovimentos} itemTemplate={itemTemplate} rows={rows} paginator
-                              header="Lista Movimentos">
-                    </DataView>
-                    {/*<Paginator first={first} rows={rows} totalRecords={120} onPageChange={onPageChange}/>*/}
+                    <div className="flex justify-content-between flex-wrap">
+                        <div className="p-dataview-header p-4 font-semibold" data-pc-section="header">
+                            Listagem Movimentos
+                        </div>
+                        <div className="align-content-center m-3" style={{cursor: "pointer"}} onClick={(e) => op.current.toggle(e)}>
+                            <span className="pi pi-search"></span>
+                        </div>
+                        <OverlayPanel ref={op}>
+                            <FilterMovimento filter={filter} buscarMovimento={buscarMovimentoFilter}/>
+                        </OverlayPanel>
+                    </div>
+                    <Divider className="m-1"></Divider>
+                    {listMovimentos.length > 0 ?
+                        <DataView value={listMovimentos} itemTemplate={itemTemplate}></DataView> :
+                        <div className="card flex justify-content-center flex-column align-content-center w-full">
+                            <Image src="/sem_conta_cadastrada.jpg" alt="Image"
+                                   width="500" className="mx-auto"/>
+                            <label className="align-self-center">Não existe movimento cadastrado</label>
+                        </div>
+                    }
+                    <Paginator first={first} rows={rows} totalRecords={totalItens} onPageChange={onPageChange}/>
+
                 </div>
                 {visible ? <CadastroMovimento visible={visible} setHideDialog={setHideDialog}
                                               idMovimento={idMovimento}/> : <></>}
