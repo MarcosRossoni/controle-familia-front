@@ -11,8 +11,19 @@ import ContaBancariaAutoComplete from "../autocompletes/ContaBancariaAutoComplet
 import movimentoService from "../../services/movimento/movimento.service.js";
 import moment from "moment/moment.js";
 import CategoriaAutoComplete from "../autocompletes/CategoriaAutoComplete.jsx";
+import {Checkbox} from "primereact/checkbox";
 
 const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
+
+    const tipoMovimento = [
+        {name: 'RECEITA', code: 0},
+        {name: 'DESPESA', code: 1}
+    ];
+
+    const situacaoMovimento = [
+        {name: 'ABERTO', code: 0},
+        {name: 'LIQUIDADO', code: 1}
+    ];
 
     const [dsDescricao, setDsDescricao] = useState("")
     const [vlMovimento, setVlMovimento] = useState("")
@@ -20,11 +31,13 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
     const [dtVencimento, setDtVencimento] = useState()
     const [dtMovimento, setDtMovimento] = useState()
     const [fgTipoMovimento, setFgTipoMovimento] = useState()
+    const [fgSituacaoMovimento, setFgSituacaoMovimento] = useState(situacaoMovimento[0])
     const [fgConciliarAutomatico, setFgConciliarAutomatico] = useState(false)
     const [contaBancaria, setContaBancaria] = useState()
     const [categoria, setCategoria] = useState(null)
     const [idConta, setIdConta] = useState(null)
     const [idCategoria, setIdCategoria] = useState(null)
+    const [fgValorParcela, setFgValorParcela] = useState(false)
 
     const setVisible = (r, reload) => {
         setHideDialog(r, reload)
@@ -39,11 +52,6 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
         setCategoria(categoria)
     }
 
-    const tipoMovimento = [
-        {name: 'RECEITA', code: 0},
-        {name: 'DESPESA', code: 1}
-    ];
-
     const createMovimento = async (e) => {
         e.preventDefault()
 
@@ -53,7 +61,9 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
             dtVencimento: moment(dtVencimento).format('YYYY-MM-DD'),
             dtMovimento: moment(dtMovimento).format('YYYY-MM-DD'),
             fgTipoMovimento: fgTipoMovimento.code,
+            fgSituacaoMovimento: fgSituacaoMovimento.code,
             fgConciliarAutomatico: fgConciliarAutomatico,
+            fgValorParcela: fgValorParcela,
             contaBancaria: contaBancaria,
             categoria: categoria,
             vlMovimento: vlMovimento,
@@ -93,6 +103,8 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
         setDtVencimento(new Date(Date.parse(movimentoEdit.dtVencimento)))
         setDtMovimento(new Date(Date.parse(movimentoEdit.dtMovimento)))
         setFgTipoMovimento(tipoMovimento[movimentoEdit.fgTipoMovimento])
+        setFgSituacaoMovimento(situacaoMovimento[movimentoEdit.fgSituacaoMovimento])
+        setFgValorParcela(tipoMovimento.fgValorParcela)
         setCategoriaDTO(movimentoEdit.categoria)
     }
 
@@ -120,12 +132,24 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
         <div>
             <Dialog header="Cadastro Movimento" visible={visible} style={{width: '50vw'}}
                     onHide={() => setVisible(false)} footer={footerContent}>
-                <div className="card flex justify-content-end pr-4 pt-1">
-                    <label className="pr-4 pt-1" style={{textAlign: "center"}}>Conciliar Automático</label>
-                    <InputSwitch checked={fgConciliarAutomatico}
-                                 onChange={(e) => setFgConciliarAutomatico(e.value)}/>
-                </div>
                 <div className="formgrid grid m-2 p-3">
+                    <div className="card flex col-12 lg:col-6 pb-2 pt-1">
+                        <label className="pr-4 pt-1 mb-2" style={{textAlign: "center"}}>Conciliar Automático</label>
+                        <InputSwitch checked={fgConciliarAutomatico}
+                                     onChange={(e) => setFgConciliarAutomatico(e.value)}
+                                    className="ml-auto lg:ml-2"/>
+                    </div>
+                    <div className="field col-12 lg:col-6 pb-2">
+                        <span className="p-float-label">
+                            <Dropdown value={fgSituacaoMovimento} onChange={(e) => setFgSituacaoMovimento(e.value)}
+                                      options={situacaoMovimento}
+                                      optionLabel="name"
+                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
+                                     border-round appearance-none outline-none focus:border-primary w-full dropdown-component
+                                      dropdown-component"/>
+                            <label htmlFor="fgTipoMovimento">Situação Movimento</label>
+                        </span>
+                    </div>
                     <div className="field col-12">
                     <span className="p-float-label">
                         <InputText id="dsDescricao" value={dsDescricao}
@@ -138,19 +162,28 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                     <div className="field col-12 mt-4">
                         {idMovimento !== null ?
                             autoCompleteContaContent(null) :
-                            <ContaBancariaAutoComplete contaBancariaDTO={setContaBancariaDTO} idContaBancaria={idConta}/>
+                            <ContaBancariaAutoComplete contaBancariaDTO={setContaBancariaDTO}
+                                                       idContaBancaria={idConta}/>
                         }
                     </div>
-                    <div className="field col-12 lg:col-6 mt-4">
+                    <div className="field col-12 lg:col-8 mt-4">
                     <span className="p-float-label">
                         <InputNumber id="vlMovimento" value={vlMovimento}
                                      onValueChange={(e) => setVlMovimento(e.value)}
                                      useGrouping={false}
                                      className="text-base text-color surface-overlay border-1 border-solid surface-border
                                      border-round appearance-none outline-none focus:border-primary w-full input-number"
-                                     inputClassName={'input-number'} minFractionDigits={2}/>
+                                     inputClassName={'input-number'} minFractionDigits={2} locale="de-DE"/>
                         <label htmlFor="vlMovimento">Valor Movimento</label>
                     </span>
+                    </div>
+                    <div className="field col-12 lg:col-4 mt-5">
+                        <div className="flex align-items-center">
+                            <Checkbox inputId="fgValorParcela" name="fgValorParcela"
+                                      onChange={e => setFgValorParcela(e.checked)}
+                                      checked={fgValorParcela}/>
+                            <label htmlFor="fgValorParcela" className="ml-2">Valor Parcela</label>
+                        </div>
                     </div>
                     <div className="field col-12 lg:col-6 mt-4">
                     <span className="p-float-label">
@@ -163,7 +196,7 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                         <label htmlFor="vlMovimento">Qtd Parcelas</label>
                     </span>
                     </div>
-                    <div className="field col-12 mt-4">
+                    <div className="field col-12 lg:col-6 mt-4">
                         <span className="p-float-label">
                             <Dropdown value={fgTipoMovimento} onChange={(e) => setFgTipoMovimento(e.value)}
                                       options={tipoMovimento}
@@ -197,7 +230,8 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                     <div className="field col-12 mt-4">
                         {idMovimento !== null ?
                             autoCompleteCategoria() :
-                            <CategoriaAutoComplete categoriaDTO={setCategoriaDTO} tipoMovimento={fgTipoMovimento} idCategoria={idCategoria}/>
+                            <CategoriaAutoComplete categoriaDTO={setCategoriaDTO} tipoMovimento={fgTipoMovimento}
+                                                   idCategoria={idCategoria}/>
                         }
                     </div>
                 </div>

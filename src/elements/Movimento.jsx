@@ -67,6 +67,7 @@ const Movimento = () => {
 
     const setHideDialog = (r, reload) => {
         setVisible(r)
+        setIdMovimento(null)
         setReaload(reload)
     }
 
@@ -110,6 +111,10 @@ const Movimento = () => {
             })
     }
 
+    const formatData = (date) => {
+        return moment(date).format('DD/MM/YYYY')
+    }
+
     useEffect(() => {
         if (!reload){
             buscarMovimentoFilter(0)
@@ -135,7 +140,7 @@ const Movimento = () => {
                                 </div>
                                 <div className="flex flex-row gap-1">
                                     <div className="font-bold text-700">Data Vencimento:</div>
-                                    <div className="text-700">{data.dtVencimento}</div>
+                                    <div className="text-700">{formatData(data.dtVencimento)}</div>
                                 </div>
                             </div>
                             <div className="flex flex-row gap-5">
@@ -154,13 +159,22 @@ const Movimento = () => {
                                     <div className="text-700">{data.dsContaBancaria}</div>
                                 </div>
                             </div>
-                            <div className="flex flex-column gap-2">
-                                <Tag value={data.dsCategoria} style={{background: `${data.dsCor}`}}></Tag>
+                            <div className="flex flex-row gap-5">
+                                <div className="flex flex-column gap-2">
+                                    <Tag value={data.dsCategoria} style={{background: `${data.dsCor}`}}></Tag>
+                                </div>
+                                <div className="flex flex-column gap-2">
+                                    <Tag value={data.fgSituacaoMovimento === 0 ? "ABERTO" : "LIQUIDADO"}
+                                         style={data.fgSituacaoMovimento === 0 ?
+                                             {background: `#4169e1`} :
+                                             {background: `#13d00a`}}>
+                                    </Tag>
+                                </div>
                             </div>
                         </div>
                         <div
                             className="flex flex-row lg:flex-column align-items-center lg:align-items-end gap-2">
-                            <span className="text-2xl white-space-nowrap font-semibold">{formatNumber(data.vlMovimento)}</span>
+                        <span className="text-2xl white-space-nowrap font-semibold">{formatNumber(data.vlMovimento)}</span>
                             <div className="col-12 text-right">
                                 <Button icon="pi pi-pencil" onClick={() => editarMovimento(data.idMovimento)}
                                         rounded text aria-label="Editar"/>
