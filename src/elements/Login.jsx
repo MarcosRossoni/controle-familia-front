@@ -9,7 +9,7 @@ function Login(props) {
     const [dsEmail, setDsEmail] = useState('')
     const [dsSenha, setDsSenha] = useState('')
 
-    const {signin, signed, signout} = useAuth();
+    const {signin, signed} = useAuth();
 
     useEffect(() => {
         // if (!signed) {

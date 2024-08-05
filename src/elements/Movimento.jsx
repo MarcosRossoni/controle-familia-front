@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import ButtonSpeeddial from "../components/buttons/ButtonSpeeddial.jsx";
 import {Tag} from "primereact/tag";
 import movimentoService from "../services/movimento/movimento.service.js";
@@ -12,16 +12,20 @@ import {Paginator} from "primereact/paginator";
 import FilterMovimento from "../components/movimento/FilterMovimento.jsx";
 import moment from "moment";
 import {Image} from "primereact/image";
+import {Toast} from "primereact/toast";
+import {confirmDialog, ConfirmDialog} from "primereact/confirmdialog";
 
 const Movimento = () => {
     const date = new Date();
 
     let op = useRef(null);
+    const toast = useRef(null);
     const [listMovimentos, setListmovimentos] = useState([]);
     const [visible, setVisible] = useState(false);
     const [reload, setReaload] = useState(false)
     const [visibleCategoria, setVisibleCategoria] = useState(false);
     const [idMovimento, setIdMovimento] = useState(null);
+    const [nrParcela, setNrParcela] = useState(null);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
     const [totalItens, setTotalItens] = useState(0);
@@ -32,6 +36,8 @@ const Movimento = () => {
         fgTipoMovimento: null,
         idCategoria: null
     });
+
+    let idMovimentoDelete = null;
 
     const [itemsMenu, setItemsMenu] = useState([
         {
@@ -52,7 +58,7 @@ const Movimento = () => {
             label: 'Delete',
             icon: 'pi pi-trash',
             command: () => {
-                toast.current.show({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
+                toast.current.show({severity: 'error', summary: 'Delete', detail: 'Data Deleted'});
             }
         },
         {
@@ -62,12 +68,13 @@ const Movimento = () => {
     ]);
 
     const formatNumber = (n) => {
-        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n)
+        return new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(n)
     }
 
     const setHideDialog = (r, reload) => {
         setVisible(r)
         setIdMovimento(null)
+        setNrParcela(null)
         setReaload(reload)
     }
 
@@ -75,8 +82,9 @@ const Movimento = () => {
         setVisibleCategoria(r)
     }
 
-    const editarMovimento = (id) => {
+    const editarMovimento = (id, nrParcela) => {
         setIdMovimento(id)
+        setNrParcela(nrParcela)
         setVisible(true)
     }
 
@@ -101,6 +109,48 @@ const Movimento = () => {
         listarMovimento(event.page, '')
     };
 
+    const activeToast = (res) => {
+        if (res !== undefined) {
+            if (res.status !== 200) {
+                toastRender('error', 'Error', res.data.message)
+            } else {
+                toastRender('success', 'Success', 'Movimento cadastrado com sucesso')
+            }
+        }
+    }
+
+    const accept = () => {
+        movimentoService.deletarMovimento(idMovimentoDelete)
+            .then((res) => {
+                if (res.data.code !== 200) {
+                    toastRender('error', 'Error', res.data.message)
+                } else {
+                    toastRender('success', 'Success', 'Movimento deletado com sucesso')
+                }
+            })
+    }
+
+    const reject = () => {
+        return
+    }
+
+    const toastRender = (severety, summary, message) => {
+        toast.current.show({severity: severety, summary: summary, detail: message, life: 3000});
+    }
+
+    const confirmDelete = (idMovimento) => {
+        idMovimentoDelete = idMovimento
+        confirmDialog({
+            message: 'Você gostaria de deletar este movimento?',
+            header: 'Confirmar Deletar',
+            icon: 'pi pi-info-circle',
+            defaultFocus: 'reject',
+            acceptClassName: 'p-button-danger',
+            accept,
+            reject
+        });
+    };
+
     const listarMovimento = (paginaAtual, queryFilter) => {
         setPage(paginaAtual)
         let query = `?currentPage=${paginaAtual}&pageSize=10${queryFilter}`
@@ -116,7 +166,7 @@ const Movimento = () => {
     }
 
     useEffect(() => {
-        if (!reload){
+        if (!reload) {
             buscarMovimentoFilter(0)
         } else {
             buscarMovimentoFilter(pag)
@@ -127,11 +177,12 @@ const Movimento = () => {
     const itemTemplate = (data) => {
         return (
             <div className="col-12">
-                <div className="card flex justify-content-end pr-4 pt-1">
-
+                <div className="card flex justify-content-center">
+                    <Toast ref={toast}/>
                 </div>
                 <div className="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                    <div className="flex flex-column lg:flex-row justify-content-between align-items-center xl:align-items-start lg:flex-1 gap-4">
+                    <div
+                        className="flex flex-column lg:flex-row justify-content-between align-items-center xl:align-items-start lg:flex-1 gap-4">
                         <div className="flex flex-column align-items-center lg:align-items-start gap-3">
                             <div className="flex flex-row gap-5">
                                 <div className="flex flex-row gap-1">
@@ -174,10 +225,15 @@ const Movimento = () => {
                         </div>
                         <div
                             className="flex flex-row lg:flex-column align-items-center lg:align-items-end gap-2">
-                        <span className="text-2xl white-space-nowrap font-semibold">{formatNumber(data.vlMovimento)}</span>
+                            <span
+                                className="text-2xl white-space-nowrap font-semibold">{formatNumber(data.vlMovimento)}</span>
                             <div className="col-12 text-right">
-                                <Button icon="pi pi-pencil" onClick={() => editarMovimento(data.idMovimento)}
+                                <Button icon="pi pi-pencil"
+                                        onClick={() => editarMovimento(data.idMovimento, data.nrParcela)}
                                         rounded text aria-label="Editar"/>
+                                <Button icon="pi pi-trash" style={{color: 'red'}}
+                                        onClick={() => confirmDelete(data.idMovimento)}
+                                        rounded text aria-label="Deletar"/>
                             </div>
                         </div>
                     </div>
@@ -189,12 +245,14 @@ const Movimento = () => {
     return (
         <div style={{height: ("88vh")}}>
             <div>
+                <ConfirmDialog/>
                 <div className="mt-2 shadow-5">
                     <div className="flex justify-content-between flex-wrap">
                         <div className="p-dataview-header p-4 font-semibold" data-pc-section="header">
                             Listagem Movimentos
                         </div>
-                        <div className="align-content-center m-3" style={{cursor: "pointer"}} onClick={(e) => op.current.toggle(e)}>
+                        <div className="align-content-center m-3" style={{cursor: "pointer"}}
+                             onClick={(e) => op.current.toggle(e)}>
                             <span className="pi pi-search"></span>
                         </div>
                         <OverlayPanel ref={op}>
@@ -213,10 +271,18 @@ const Movimento = () => {
                     <Paginator first={first} rows={rows} totalRecords={totalItens} onPageChange={onPageChange}/>
 
                 </div>
-                {visible ? <CadastroMovimento visible={visible} setHideDialog={setHideDialog}
-                                              idMovimento={idMovimento}/> : <></>}
-                {visibleCategoria ?
-                    <CadastroCategoria visible={visibleCategoria} setHideDialog={setHideDialogCategoria}/> : <></>}
+                {
+                    visible ?
+                        <CadastroMovimento visible={visible} setHideDialog={setHideDialog}
+                                           idMovimento={idMovimento} activeToast={activeToast}
+                                           nrParcela={nrParcela}/> :
+                        <></>
+                }
+                {
+                    visibleCategoria ?
+                        <CadastroCategoria visible={visibleCategoria} setHideDialog={setHideDialogCategoria}/> :
+                        <></>
+                }
             </div>
             <ButtonSpeeddial itemsSpeed={itemsMenu}/>
         </div>

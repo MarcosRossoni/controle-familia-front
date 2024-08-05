@@ -12,8 +12,9 @@ import movimentoService from "../../services/movimento/movimento.service.js";
 import moment from "moment/moment.js";
 import CategoriaAutoComplete from "../autocompletes/CategoriaAutoComplete.jsx";
 import {Checkbox} from "primereact/checkbox";
+import {Tooltip} from "primereact/tooltip";
 
-const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
+const CadastroMovimento = ({visible, setHideDialog, idMovimento, activeToast, nrParcela}) => {
 
     const tipoMovimento = [
         {name: 'RECEITA', code: 0},
@@ -39,7 +40,8 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
     const [idCategoria, setIdCategoria] = useState(null)
     const [fgValorParcela, setFgValorParcela] = useState(false)
 
-    const setVisible = (r, reload) => {
+    const setVisible = (r, reload, res) => {
+        activeToast(res)
         setHideDialog(r, reload)
         return false
     }
@@ -57,6 +59,7 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
 
         const movimentoDTO = {
             idMovimento: idMovimento,
+            nrParcela: nrParcela,
             qtdParcelas: qtdParcelas,
             dtVencimento: moment(dtVencimento).format('YYYY-MM-DD'),
             dtMovimento: moment(dtMovimento).format('YYYY-MM-DD'),
@@ -71,8 +74,8 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
         }
         if (idMovimento !== null) {
             movimentoService.editarMovimento(movimentoDTO)
-                .then(() => {
-                    setVisible(false, true)
+                .then((res) => {
+                    setVisible(false, true, res)
                 });
             return
         }
@@ -86,7 +89,7 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
 
     useEffect(() => {
         if (idMovimento !== null) {
-            movimentoService.findById(idMovimento)
+            movimentoService.findById(idMovimento, nrParcela)
                 .then((response) => {
                     construirObjectEdit(response.data)
                 })
@@ -94,6 +97,7 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
     }, [visible]);
 
     const construirObjectEdit = (movimentoEdit) => {
+        console.log(movimentoEdit)
         setDsDescricao(movimentoEdit.dsDescricao)
         setVlMovimento(Math.abs(movimentoEdit.vlMovimento))
         setIdConta(movimentoEdit.contaBancaria.idContaBancaria)
@@ -166,7 +170,7 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                                                        idContaBancaria={idConta}/>
                         }
                     </div>
-                    <div className="field col-12 lg:col-8 mt-4">
+                    <div className="field col-12 lg:col-6 mt-4">
                     <span className="p-float-label">
                         <InputNumber id="vlMovimento" value={vlMovimento}
                                      onValueChange={(e) => setVlMovimento(e.value)}
@@ -177,30 +181,53 @@ const CadastroMovimento = ({visible, setHideDialog, idMovimento}) => {
                         <label htmlFor="vlMovimento">Valor Movimento</label>
                     </span>
                     </div>
-                    <div className="field col-12 lg:col-4 mt-5">
-                        <div className="flex align-items-center">
-                            <Checkbox inputId="fgValorParcela" name="fgValorParcela"
-                                      onChange={e => setFgValorParcela(e.checked)}
-                                      checked={fgValorParcela}/>
-                            <label htmlFor="fgValorParcela" className="ml-2">Valor Parcela</label>
-                        </div>
-                    </div>
-                    <div className="field col-12 lg:col-6 mt-4">
-                    <span className="p-float-label">
-                        <InputNumber id="qtdParcelas" value={qtdParcelas}
-                                     onValueChange={(e) => setQtdParcelas(e.value)}
-                                     useGrouping={false}
-                                     className="text-base text-color surface-overlay border-1 border-solid surface-border
-                                     border-round appearance-none outline-none focus:border-primary w-full input-number"
-                                     inputClassName={'input-number'}/>
-                        <label htmlFor="vlMovimento">Qtd Parcelas</label>
-                    </span>
-                    </div>
+                    {
+                        idMovimento === null ?
+                            <div className="field col-12 lg:col-6 mt-5">
+                                <div>
+                                    <div className="flex align-items-center">
+                                        <Checkbox inputId="fgValorParcela" name="fgValorParcela"
+                                                  onChange={e => setFgValorParcela(e.checked)}
+                                                  checked={fgValorParcela}/>
+                                        <label htmlFor="fgValorParcela" className="ml-2">Valor Parcela</label>
+                                        <div className="card flex justify-content-center ml-2">
+                                            <Tooltip target=".custom-target-icon"/>
+
+                                            <i className="custom-target-icon pi pi-info-circle p-text-secondary p-overlay-badge"
+                                               data-pr-tooltip="Teste"
+                                               data-pr-position="right"
+                                               data-pr-at="right+5 top"
+                                               data-pr-my="left center-2"
+                                               style={{fontSize: '1rem', cursor: 'pointer'}}>
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            :
+                            <></>
+                    }
+                    {
+                        idMovimento === null ?
+                            <div className="field col-12 lg:col-6 mt-4">
+                                <span className="p-float-label">
+                                    <InputNumber id="qtdParcelas" value={qtdParcelas}
+                                        onValueChange={(e) => setQtdParcelas(e.value)}
+                                        useGrouping={false}
+                                        className="text-base text-color surface-overlay border-1 border-solid surface-border
+                                        border-round appearance-none outline-none focus:border-primary w-full input-number"
+                                        inputClassName={'input-number'}/>
+                                    <label htmlFor="vlMovimento">Qtd Parcelas</label>
+                                </span>
+                            </div> :
+                            <></>
+                    }
                     <div className="field col-12 lg:col-6 mt-4">
                         <span className="p-float-label">
                             <Dropdown value={fgTipoMovimento} onChange={(e) => setFgTipoMovimento(e.value)}
                                       options={tipoMovimento}
                                       optionLabel="name"
+                                      disabled={idMovimento}
                                       className="text-base text-color surface-overlay border-1 border-solid surface-border
                                      border-round appearance-none outline-none focus:border-primary w-full dropdown-component
                                       dropdown-component"/>

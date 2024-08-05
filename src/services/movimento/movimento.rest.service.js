@@ -5,8 +5,8 @@ const movimentoRestService = {
         return pathBackend.get(`/movimento/list-movimento${query}`)
     },
 
-    async findById (idMovimento)  {
-        return pathBackend.get(`/movimento/${idMovimento}`)
+    async findById (idMovimento, nrParcela)  {
+        return pathBackend.get(`/movimento/${idMovimento}/${nrParcela}`);
     },
 
     async cadastroMovimento (movimento)  {
@@ -15,6 +15,10 @@ const movimentoRestService = {
 
     async editarMovimento (movimento)  {
         return pathBackend.put("/movimento", movimento)
+    },
+
+    async deletarMovimento (idMovimento) {
+        return pathBackend.delete(`/movimento/${idMovimento}`);
     }
 }
 

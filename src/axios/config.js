@@ -1,4 +1,5 @@
 import axios from "axios";
+import verificaToken from "./virifica.token.js";
 
 let TOKEN = JSON.parse(localStorage.getItem("user_token"));
 
@@ -23,21 +24,19 @@ pathBackend.interceptors.request.use(async config => {
 )
 
 pathBackend.interceptors.response.use(async response => {
-
     return response;
 
 }, error => {
-    console.log(error)
     let status = error.response.status;
-    if (status === 401 && TOKEN) {
-        localStorage.removeItem("user_token");
-        window.location.href = "/login";
-        return
-    }
     if (status === 401) {
+        console.log(TOKEN)
+        if (TOKEN) {
+            verificaToken.deleteToken()
+            return
+        }
         console.log("precisa do refresh token")
     }
-    return error;
+    return error.response;
 })
 
 export default pathBackend

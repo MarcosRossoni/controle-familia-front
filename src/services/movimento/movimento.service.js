@@ -5,8 +5,8 @@ const movimentoService = {
         return movimentoRestService.listarMovimentos(query);
     },
 
-    async findById (idMovimento) {
-        return movimentoRestService.findById(idMovimento);
+    async findById (idMovimento, nrParcela) {
+        return movimentoRestService.findById(idMovimento, nrParcela);
     },
 
     async cadastroMovimento (movimento) {
@@ -15,6 +15,10 @@ const movimentoService = {
 
     async editarMovimento (movimento) {
         return movimentoRestService.editarMovimento(movimento)
+    },
+
+    async deletarMovimento (idMovimento) {
+        return movimentoRestService.deletarMovimento(idMovimento)
     }
 }
 

@@ -54,8 +54,9 @@ export const AuthProvider = ({children}) => {
     };
 
     const signout = () => {
-        setUser(null);
-        localStorage.removeItem("user_token");
+        pathBackend.patch(`/revoke`).then(function (res) {
+            console.log(res)
+        })
     };
 
     return (
